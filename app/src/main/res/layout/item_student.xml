@@ -1,0 +1,44 @@
+<!-- item_student.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/text_reg_no"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textIsSelectable="true"
+        android:text="Reg No" />
+
+    <TextView
+        android:id="@+id/text_name"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:textStyle="bold"
+        android:textIsSelectable="true"
+        android:layout_height="wrap_content"
+        android:text="Name" />
+
+    <TextView
+        android:id="@+id/text_phone"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:textStyle="bold"
+        android:textIsSelectable="true"
+        android:layout_height="wrap_content"
+        android:text="Phone No" />
+
+    <TextView
+        android:id="@+id/text_email"
+        android:layout_width="0dp"
+        android:textIsSelectable="true"
+        android:textStyle="bold"
+        android:layout_weight="3"
+        android:layout_height="wrap_content"
+        android:text="Email ID" />
+</LinearLayout>

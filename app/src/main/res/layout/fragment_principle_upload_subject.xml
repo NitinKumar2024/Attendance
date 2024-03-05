@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/purple_200"
+    tools:context=".Principle.PrincipleUploadSubject">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_gravity="center"
+        android:background="@drawable/gradient_background_secondary">
+
+        <!-- Semester title -->
+        <TextView
+            android:id="@+id/semesterTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="28sp"
+            android:textColor="#EF3333"
+            android:text="Upload Subject"
+            android:textAlignment="center"
+            android:layout_marginBottom="80dp"/>
+        <!-- Three-dot Spinner (ProgressBar) -->
+        <ProgressBar
+            android:id="@+id/threeDotSpinner"
+            style="@android:style/Widget.Holo.ProgressBar.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:layout_marginBottom="40dp"/>
+
+
+        <!-- Buttons for the semester -->
+        <LinearLayout
+            android:id="@+id/buttonsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/subject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Subject"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_corner"/>
+
+            <Button
+                android:id="@+id/faculty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Faculty"
+                android:visibility="gone"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_corner"
+                android:layout_marginStart="8dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+</FrameLayout>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:rowCount="2"
+    android:columnCount="2"
+    android:padding="16dp">
+
+    <!-- Branch 1: AI & ML -->
+    <LinearLayout
+        android:id="@+id/branch_ai_ml"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:orientation="vertical"
+        android:background="#FFC107"
+        android:layout_margin="8dp">
+
+        <!-- Add image for AI & ML branch -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/ai_ml_image"
+            android:scaleType="centerCrop"
+            android:contentDescription="AI &amp; ML Image"/>
+
+        <!-- Add additional content for AI & ML branch -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="AI &amp; ML"
+            android:textSize="18sp"
+            android:textColor="#ffffff"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Explore the world of Artificial Intelligence and Machine Learning."
+            android:textColor="#ffffff"
+            android:layout_marginTop="8dp"/>
+    </LinearLayout>
+
+    <!-- Branch 2: Mechanical -->
+    <LinearLayout
+        android:id="@+id/branch_mechanical"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:orientation="vertical"
+        android:background="#4CAF50"
+        android:layout_margin="8dp">
+
+        <!-- Add image for Mechanical branch -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/mechanical_image"
+            android:scaleType="centerCrop"
+            android:contentDescription="Mechanical Image"/>
+
+        <!-- Add additional content for Mechanical branch -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mechanical"
+            android:textSize="18sp"
+            android:textColor="#ffffff"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Experience the world of mechanical engineering and innovation."
+            android:textColor="#ffffff"
+            android:layout_marginTop="8dp"/>
+    </LinearLayout>
+
+    <!-- Branch 3: Civil -->
+    <LinearLayout
+        android:id="@+id/branch_civil"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:orientation="vertical"
+        android:background="#2196F3"
+        android:layout_margin="8dp">
+
+        <!-- Add image for Civil branch -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/civil_image"
+
+            android:scaleType="centerCrop"
+            android:contentDescription="Civil Image"/>
+
+        <!-- Add additional content for Civil branch -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Civil"
+            android:textSize="18sp"
+            android:textColor="#ffffff"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Discover the world of civil engineering and infrastructure development."
+            android:textColor="#ffffff"
+            android:layout_marginTop="8dp"/>
+    </LinearLayout>
+
+    <!-- Branch 4: Robotics -->
+    <LinearLayout
+        android:id="@+id/branch_robotics"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:orientation="vertical"
+        android:background="#FF5722"
+        android:layout_margin="8dp">
+
+        <!-- Add image for Robotics branch -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/robotics_image"
+            android:scaleType="centerCrop"
+            android:contentDescription="Robotics Image"/>
+
+        <!-- Add additional content for Robotics branch -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Robotics"
+            android:textSize="18sp"
+            android:textColor="#ffffff"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Embark on a journey through the exciting field of robotics and automation."
+            android:textColor="#ffffff"
+            android:layout_marginTop="8dp"/>
+    </LinearLayout>
+
+</GridLayout>

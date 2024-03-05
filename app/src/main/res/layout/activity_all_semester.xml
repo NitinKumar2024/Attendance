@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFC107"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Semester 1 -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/semester1"
+        android:elevation="4dp"
+        app:cardCornerRadius="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Semester 1"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:textColor="#9C27B0"
+            android:padding="16dp"/>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Semester 2 -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/semester2"
+        android:elevation="4dp"
+        app:cardCornerRadius="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Semester 2"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:textColor="#A518BD"
+            android:padding="16dp"/>
+    </androidx.cardview.widget.CardView>
+
+
+    <!-- Semester 3 -->
+    <!-- Add more semesters with different colors and styles -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/semester3"
+
+        android:elevation="4dp"
+        app:cardCornerRadius="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Semester 3"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:textColor="#9C27B0"
+            android:padding="16dp"/>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/semester4"
+        android:elevation="4dp"
+        app:cardCornerRadius="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Semester 4"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:textColor="#9C27B0"
+            android:padding="16dp"/>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/semester5"
+        android:elevation="4dp"
+        app:cardCornerRadius="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Semester 5"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:textColor="#9C27B0"
+            android:padding="16dp"/>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/semester6"
+        android:elevation="4dp"
+        app:cardCornerRadius="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Semester 6"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:textColor="#9C27B0"
+            android:padding="16dp"/>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

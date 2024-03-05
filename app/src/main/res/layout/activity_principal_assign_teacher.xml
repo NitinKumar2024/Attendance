@@ -1,0 +1,60 @@
+<!-- activity_assign_subject.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background_secondary"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Assign Subjects"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"/>
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteFaculty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Select Faculty"
+        android:layout_below="@id/textViewTitle"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="16sp"
+        android:background="@drawable/edittext_background"/>
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteSubject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Select Subject"
+        android:layout_below="@id/autoCompleteFaculty"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="16sp"
+        android:background="@drawable/edittext_background"/>
+
+    <Button
+        android:id="@+id/buttonAssignSubject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Assign Subject"
+        android:layout_below="@id/autoCompleteSubject"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:textSize="16sp"
+        android:textColor="#ffffff"
+        android:background="@drawable/rounded_corner"/>
+</RelativeLayout>

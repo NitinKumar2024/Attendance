@@ -1,0 +1,41 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ai_ml_image"
+        android:contentDescription="Branch Image"/>
+
+    <TextView
+        android:id="@+id/branchNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageView"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/semesterTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/branchNameTextView"
+        android:textSize="16sp"
+        android:textColor="#555555"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="16dp"/>
+    <!-- Three-dot Spinner (ProgressBar) -->
+    <ProgressBar
+        android:id="@+id/threeDotSpinner"
+        style="@android:style/Widget.Holo.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:layout_marginTop="8dp"/>
+</RelativeLayout>

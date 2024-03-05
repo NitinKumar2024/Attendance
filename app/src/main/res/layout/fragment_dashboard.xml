@@ -1,0 +1,92 @@
+<!-- res/layout/activity_mark_attendance.xml -->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F5F5F5">
+
+        <!-- Faculty Image -->
+        <ImageView
+            android:id="@+id/imageViewFaculty"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/barh_logo"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="32dp"
+            android:layout_centerHorizontal="true"/>
+
+        <!-- Faculty Name -->
+        <TextView
+            android:id="@+id/textViewName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="John Doe"
+            android:textSize="24sp"
+            android:layout_below="@id/imageViewFaculty"
+            android:layout_marginTop="16dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="#333333"
+            android:textStyle="bold"/>
+
+        <!-- Faculty Subject -->
+        <TextView
+            android:id="@+id/textViewSubject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Computer Science"
+            android:textSize="18sp"
+            android:layout_below="@id/textViewName"
+            android:layout_marginTop="8dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="#666666"/>
+
+        <!-- Faculty Phone Number -->
+        <TextView
+            android:id="@+id/textViewPhoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone: +1234567890"
+            android:textSize="16sp"
+            android:layout_below="@id/textViewSubject"
+            android:layout_marginTop="8dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="#666666"/>
+
+        <!-- Hidden Password (Not Visible) -->
+        <TextView
+            android:id="@+id/textViewPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="********"
+            android:layout_below="@id/textViewPhoneNumber"
+            android:layout_marginTop="8dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="#666666"
+            android:visibility="gone"
+            android:textStyle="italic"/>
+
+        <!-- Edit Profile Button -->
+        <Button
+            android:id="@+id/buttonEditProfile"
+            android:layout_width="200dp"
+            android:layout_height="48dp"
+            android:text="Edit Profile"
+            android:layout_below="@id/textViewPassword"
+            android:layout_marginTop="24dp"
+            android:layout_centerHorizontal="true"
+            android:background="#2196F3"
+            android:textColor="#FFFFFF"
+            android:visibility="gone"
+            android:textSize="18sp"
+            android:letterSpacing="0.02"
+            android:elevation="4dp"
+            android:stateListAnimator="@null"
+            android:layout_marginBottom="32dp"/> <!-- Add margin to the bottom for better spacing -->
+
+    </RelativeLayout>
+
+</ScrollView>

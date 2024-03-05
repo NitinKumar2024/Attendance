@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1055802612826",
+    "project_id": "attendence-1cde6",
+    "storage_bucket": "attendence-1cde6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1055802612826:android:945bdfa2ef17d9a4b2cc63",
+        "android_client_info": {
+          "package_name": "com.viddoer.attendence"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRIPKoDIMu4elpYmzEm_keb8BJOAl3YR8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

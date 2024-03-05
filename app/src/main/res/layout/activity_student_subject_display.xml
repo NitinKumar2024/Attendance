@@ -1,0 +1,57 @@
+<!-- activity_attendance_chart.xml -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:padding="16dp">
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/attendanceChart"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="400dp"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/presentCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/attendanceChart"
+        android:layout_marginTop="16dp"
+        android:text="Present: 0"/>
+
+    <TextView
+        android:id="@+id/absentCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/presentCountTextView"
+        android:layout_marginTop="8dp"
+        android:text="Absent: 0"/>
+
+    <TextView
+        android:id="@+id/totalCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/absentCountTextView"
+        android:layout_marginTop="8dp"
+        android:text="Total: 0"/>
+
+    <TextView
+        android:id="@+id/percentageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/totalCountTextView"
+        android:layout_marginTop="8dp"
+        android:text="Percentage: 0%"/>
+    <!-- Three-dot Spinner (ProgressBar) -->
+    <ProgressBar
+        android:id="@+id/threeDotSpinner"
+        style="@android:style/Widget.Holo.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="8dp"/>
+
+</RelativeLayout>

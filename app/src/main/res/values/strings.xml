@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Attendence</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="select_subject">Select Subject</string>
+
+    <array name="subject_array">
+        <item>Select Your Branch</item>
+        <item>Artificial Intelligence and Machine Learning</item>
+        <item>Mechanical(CAD/CAM)</item>
+        <item>Civil(Construction)</item>
+        <item>Electronics(Robotics)</item>
+    </array>
+    <array name="branch_array">
+        <item>Select Your Semester</item>
+        <item>Semester 1</item>
+        <item>Semester 2</item>
+        <item>Semester 3</item>
+        <item>Semester 4</item>
+        <item>Semester 5</item>
+        <item>Semester 6</item>
+    </array>
+    <string name="title_activity_student_main">StudentMainActivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

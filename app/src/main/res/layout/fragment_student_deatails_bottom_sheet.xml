@@ -1,0 +1,84 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bottomsheetbackground"
+    tools:context=".Faculties.StudentDeatailsBottomSheet">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+    <!-- Title TextView -->
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mathematics"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/textViewTitle"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/report"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Attendance Report"
+            android:textSize="18sp"
+
+            android:drawablePadding="8dp"
+            android:padding="8dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider_color"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"/>
+
+
+
+        <TextView
+            android:id="@+id/text_call"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Call"
+            android:textSize="18sp"
+
+            android:drawablePadding="8dp"
+            android:padding="8dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider_color"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/text_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Send mail for low Attendance"
+            android:textSize="18sp"
+
+            android:drawablePadding="8dp"
+            android:padding="8dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>

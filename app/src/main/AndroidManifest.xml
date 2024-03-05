@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <application
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@drawable/edu_mark_logo"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Attendence"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".Principle.PrincipalAssignTeacher"
+            android:exported="false" />
+        <activity
+            android:name=".Principle.PrincipleUploadSubjectAndFaculty"
+            android:exported="false" />
+        <activity
+            android:name=".Principle.StudentSemesterHandling"
+            android:exported="false" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.viddoer.attendence.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity
+            android:name=".Students.StudentSubjectDisplay"
+            android:exported="false" />
+        <activity
+            android:name=".Faculties.AllAttendanceViewDownload"
+            android:exported="false" />
+        <activity
+            android:name=".SplashScreenActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Students.AllSubjectDisplay"
+            android:exported="false" />
+        <activity
+            android:name=".Principle.FacultyProfile"
+            android:exported="false" />
+        <activity
+            android:name=".Principle.TeacherDetails"
+            android:exported="false" />
+        <activity
+            android:name=".Principle.PrincipleDashboard"
+            android:exported="false" />
+        <activity
+            android:name=".StudentDashBoard"
+            android:exported="false" />
+        <activity
+            android:name=".AllStudentDisplay"
+            android:exported="false" />
+        <activity
+            android:name=".SelectSubject"
+            android:exported="false" />
+        <activity
+            android:name=".Authentication.TeacherLogin"
+            android:exported="false" />
+        <activity
+            android:name=".WhoAreYou"
+            android:exported="false" />
+        <activity
+            android:name=".AllSemester"
+            android:exported="false" />
+        <activity
+            android:name=".Authentication.ForgotPassword"
+            android:exported="false" />
+        <activity
+            android:name=".Authentication.Login"
+            android:exported="false" />
+        <activity
+            android:name=".Authentication.SignUp"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name" />
+    </application>
+
+</manifest>

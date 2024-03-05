@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Subject"
+        android:textColor="#2196F3"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textStyle="italic"
+
+        android:textSize="24dp"
+        />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+
+        android:layout_height="wrap_content"
+        tools:ignore="DuplicateIds">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/subject_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:inputType="text"
+            android:hint="Enter Subject Name: " />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+
+        android:layout_height="wrap_content"
+        tools:ignore="DuplicateIds">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/subject_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:inputType="numberSigned"
+            android:hint="Enter Subject Code: " />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,46 @@
+<!-- student_item_layout.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:background="@drawable/border_background"> <!-- Apply the background drawable -->
+
+    <TextView
+        android:id="@+id/textName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textStyle="bold|italic"
+        android:textSize="16sp"
+        android:background="@color/white"
+        android:text="Nitin Kumar"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:paddingEnd="8dp"
+      />
+    <TextView
+        android:id="@+id/textRoll"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:text="10"
+        android:textSize="16sp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:paddingEnd="8dp"
+         />
+    <TextView
+        android:id="@+id/textStatus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:text="Present"
+        android:background="@color/white"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+       /> <!-- Add ripple effect on click -->
+</LinearLayout>

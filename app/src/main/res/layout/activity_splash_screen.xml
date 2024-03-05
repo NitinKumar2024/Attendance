@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <!-- ImageView to display a logo or splash screen image -->
+    <ImageView
+        android:id="@+id/imageViewSplash"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/edu_mark_logo"
+
+        android:scaleType="centerCrop" />
+
+    <!-- Optionally, you can add other UI elements such as a TextView or ProgressBar -->
+    <!-- Example TextView -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageViewSplash"
+        android:layout_centerInParent="true"
+        android:id="@+id/textViewAnimated"
+        android:text="Edu Mark"
+        android:textAlignment="center"
+        android:textColor="@color/purple_500"
+        android:textSize="24sp" />
+
+</RelativeLayout>

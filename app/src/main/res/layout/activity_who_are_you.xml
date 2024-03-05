@@ -1,0 +1,102 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background_secondary"
+    android:padding="16dp"
+    >
+
+    <TextView
+        android:id="@+id/textViewRole"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Continue As"
+        android:textSize="28sp"
+        android:textColor="#333333"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+
+      >
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/studentButton"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/btn_background_1"
+            android:drawableStart="@drawable/ic_student"
+            android:drawablePadding="20dp"
+            android:paddingStart="20dp"
+            android:text="Student"
+
+            android:textSize="18sp"
+            android:textStyle="bold"
+            style="@android:style/Widget.Button"
+            android:textAlignment="viewStart" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/facultyButton"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="32dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            style="@android:style/Widget.Button"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/btn_background_1"
+            android:drawableStart="@drawable/ic_faculty"
+            android:drawablePadding="20dp"
+            android:paddingStart="20dp"
+            android:text="Faculty"
+            android:textAlignment="viewStart" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/PrincipleButton"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="32dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            style="@android:style/Widget.Button"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/btn_background_1"
+            android:drawableStart="@drawable/ic_college"
+            android:drawablePadding="20dp"
+            android:paddingStart="20dp"
+            android:text="Principal"
+            android:textAlignment="viewStart" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/OthersButton"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            style="@android:style/Widget.Button"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/btn_background_1"
+            android:drawableStart="@drawable/ic_other"
+            android:drawablePadding="20dp"
+            android:paddingStart="20dp"
+            android:text="Others"
+            android:textAlignment="viewStart" />
+    </LinearLayout>
+
+
+</RelativeLayout>

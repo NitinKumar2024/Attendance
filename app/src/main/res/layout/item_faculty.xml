@@ -1,0 +1,32 @@
+<!-- item_faculty.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textViewFacultyName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_vertical"/>
+
+    <TextView
+        android:id="@+id/textViewSubject"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="16sp"
+        android:layout_gravity="center_vertical"/>
+
+    <Spinner
+        android:id="@+id/spinnerOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:entries="@array/options_array"/>
+
+</LinearLayout>

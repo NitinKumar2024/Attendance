@@ -1,0 +1,92 @@
+<!-- res/layout/activity_mark_attendance.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+
+    <!-- List of Students with Checkboxes -->
+    <LinearLayout
+        android:id="@+id/checkboxContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        android:layout_marginTop="16dp">
+
+        <!-- Student 1 -->
+        <TextView
+            android:id="@+id/checkboxStudent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/purple_200"
+            android:textAlignment="center"
+            android:textSize="24dp"
+            android:text="Nitin Kumar"/>
+
+
+
+
+
+    <!-- Present and Absent Checkboxes -->
+    <LinearLayout
+        android:id="@+id/checkBoxContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="8dp">
+
+        <!-- Present CheckBox -->
+        <CheckBox
+            android:id="@+id/checkBoxPresent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Present"/>
+
+        <!-- Absent CheckBox -->
+        <CheckBox
+            android:id="@+id/checkBoxAbsent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Absent"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"/>
+        <!-- Rename Icon -->
+        <ImageView
+            android:id="@+id/icon_rename"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_menu"
+            android:background="@drawable/background_rounded"
+            android:layout_marginEnd="26dp"
+
+            />
+
+    </LinearLayout>
+        <!-- Mark Attendance Button -->
+        <Button
+            android:id="@+id/buttonMarkAttendance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:background="@drawable/rounded_corner"
+            style="@style/Widget.App.Button.Primary"
+
+            android:text="Mark Attendance"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="24dp"/>
+    </LinearLayout>
+    <Spinner
+        android:id="@+id/spinnerOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:background="?android:attr/selectableItemBackground"
+        android:entries="@array/options_array"/>
+
+
+
+</RelativeLayout>

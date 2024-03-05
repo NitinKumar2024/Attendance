@@ -1,0 +1,113 @@
+<!-- res/layout/activity_mark_attendance.xml -->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Title TextView -->
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Attendance"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Introduction for Single Date Calendar -->
+        <TextView
+            android:id="@+id/textViewSingleDateIntroduction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select a date to retrieve table data for that specific date:"
+            android:layout_below="@id/textViewTitle"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Single Date Selection -->
+        <CalendarView
+            android:id="@+id/singleDateCalendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewSingleDateIntroduction"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            />
+
+        <!-- Button for Single Date Retrieval -->
+        <Button
+            android:id="@+id/buttonGetTableDataForDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get Table Data for Date"
+            android:background="@color/black"
+            android:layout_below="@id/singleDateCalendarView"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Line View -->
+        <View
+            android:id="@+id/lineView"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_below="@id/buttonGetTableDataForDate"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Introduction for Date Range Calendar -->
+        <TextView
+            android:id="@+id/textViewDateRangeIntroduction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select start and end dates to retrieve table data for the date range:"
+            android:layout_below="@id/lineView"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Date Range Selection -->
+        <CalendarView
+            android:id="@+id/startDateCalendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewDateRangeIntroduction"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="visible"
+            />
+
+        <CalendarView
+            android:id="@+id/endDateCalendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/startDateCalendarView"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="visible"
+            />
+
+        <!-- Button for Date Range Retrieval -->
+        <Button
+            android:id="@+id/buttonGetTableDataForDateRange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get Table Data for Date Range"
+            android:background="@color/black"
+            android:layout_below="@id/endDateCalendarView"
+            android:layout_marginTop="16dp"/>
+        <!-- Button for Date Range Retrieval -->
+        <Button
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get Table Data for Date Range"
+            android:background="@color/black"
+            android:visibility="invisible"
+            android:layout_below="@id/buttonGetTableDataForDateRange"
+            android:layout_marginTop="16dp"/>
+
+    </RelativeLayout>
+</ScrollView>
