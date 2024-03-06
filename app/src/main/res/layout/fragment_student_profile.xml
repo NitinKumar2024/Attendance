@@ -57,6 +57,7 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:text="Your Attendance: "
             android:textSize="20dp"
             android:textStyle="italic|bold"
@@ -72,6 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="80%"
+            android:visibility="gone"
             android:textColor="#05E60E"
             android:textSize="36dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -85,6 +87,7 @@
             android:id="@+id/imageView3"
             android:layout_width="36dp"
             android:layout_height="31dp"
+            android:visibility="gone"
             android:src="@drawable/gradient_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -97,6 +100,7 @@
             android:id="@+id/imageView4"
             android:layout_width="39dp"
             android:layout_height="32dp"
+            android:visibility="gone"
             android:src="@drawable/gradient_background_secondary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -112,6 +116,7 @@
             android:text="Present Days: 40"
             android:textSize="16dp"
             android:textStyle="italic|bold"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.166"
@@ -126,6 +131,7 @@
             android:text="Total Days: 60"
             android:textSize="16dp"
             android:textStyle="italic|bold"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.713"
@@ -133,17 +139,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView4"
             app:layout_constraintVertical_bias="0.036" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="116dp"
-            android:layout_height="32dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/present_text"
-            app:layout_constraintVertical_bias="0.208" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.viddoer.attendence.Adapters.StudentSubjectAdapter;
 import com.viddoer.attendence.Models.StudentSubjectModel;
 import com.viddoer.attendence.Principle.PrincipalAssignTeacher;
@@ -40,6 +41,7 @@ public class StudentDashboardFragment extends Fragment {
     private static final String PHP_SCRIPT_URL = "https://viddoer.com/attendance/gpbarh/student_all_subject.php";
     ProgressBar progressBar;
     List<StudentSubjectModel> subjectList = new ArrayList<>();
+    RecyclerView recyclerView;
 
     public void setData(String name, String email, String registration, String phone, String semester, String password) {
         this.name = name;
@@ -64,7 +66,7 @@ public class StudentDashboardFragment extends Fragment {
         // Add more subjects as needed
 
         // Initialize RecyclerView
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView = view.findViewById(R.id.recyclerView);
 
         // Set up LinearLayoutManager
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -73,7 +75,17 @@ public class StudentDashboardFragment extends Fragment {
         // Set up the adapter
         StudentSubjectAdapter adapter = new StudentSubjectAdapter(getActivity(), subjectList);
         recyclerView.setAdapter(adapter);
+
         fetch_all_subject(branch, semester);
+
+        FloatingActionButton floatingActionButton = view.findViewById(R.id.refresh);
+        floatingActionButton.setVisibility(View.GONE);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fetch_all_subject(branch, semester);
+            }
+        });
 
 
 
@@ -178,6 +190,13 @@ public class StudentDashboardFragment extends Fragment {
                 subjectList.add(new StudentSubjectModel(subject_code, branch_code, roll, subject));
 
             }
+
+
+
+            // Set up LinearLayoutManager
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            recyclerView.setLayoutManager(layoutManager);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

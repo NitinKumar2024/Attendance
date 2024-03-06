@@ -185,34 +185,26 @@ public class Login extends AppCompatActivity {
                 String password = studentObject.getString("password");
               //  Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
 
-                if (name!=null){
-                    Toast.makeText(this, "Login Successfully", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Login.this, StudentDashBoard.class);
-                    intent.putExtra("name", name);
-                    intent.putExtra("email", Email);
-                    intent.putExtra("semester", semester);
-                    intent.putExtra("registration", Registration);
-                    intent.putExtra("phone", Phone);
-                    intent.putExtra("password", password);
-                    SharedPreferences sharedPreferences = getSharedPreferences("student_login", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("email", Email);
-                    editor.putString("password", password);
-                    editor.putString("name", name);
-                    editor.putString("semester",semester);
-                    editor.putString("registration", Registration);
-                    editor.putString("phone", Phone);
-                    editor.apply();
+                Toast.makeText(this, "Login Successfully", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Login.this, StudentDashBoard.class);
+                intent.putExtra("name", name);
+                intent.putExtra("email", Email);
+                intent.putExtra("semester", semester);
+                intent.putExtra("registration", Registration);
+                intent.putExtra("phone", Phone);
+                intent.putExtra("password", password);
+                SharedPreferences sharedPreferences = getSharedPreferences("student_login", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("email", Email);
+                editor.putString("password", password);
+                editor.putString("name", name);
+                editor.putString("semester",semester);
+                editor.putString("registration", Registration);
+                editor.putString("phone", Phone);
+                editor.apply();
 
-                    startActivity(intent);
-                } else if (name == null) {
-                    Toast.makeText(this, "Invalid username and password", Toast.LENGTH_SHORT).show();
-
-
-                } else {
-                    Toast.makeText(this, "Invalid username and password", Toast.LENGTH_SHORT).show();
-                }
-
+                startActivity(intent);
+                finish();
 
 
             }

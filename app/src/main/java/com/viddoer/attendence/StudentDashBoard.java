@@ -26,7 +26,7 @@ public class StudentDashBoard extends AppCompatActivity {
         String email = getIntent().getStringExtra("email");
         String semester = getIntent().getStringExtra("semester");
         String registration = getIntent().getStringExtra("registration");
-        String phone = getIntent().getStringExtra("Phone");
+        String phone = getIntent().getStringExtra("phone");
         String password = getIntent().getStringExtra("password");
 
         ViewPager viewPager = findViewById(R.id.viewPager);

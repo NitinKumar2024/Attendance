@@ -41,6 +41,7 @@ public class AllStudentDisplay extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Loading...");
+        this.getSupportActionBar().hide();
 
         this.getSupportActionBar().hide();
         List<AttendenceModel> contactList = new ArrayList<>();

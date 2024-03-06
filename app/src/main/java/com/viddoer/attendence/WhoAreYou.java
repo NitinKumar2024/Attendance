@@ -55,7 +55,7 @@ public class WhoAreYou extends AppCompatActivity {
         String password = sharedPreferences.getString("password", null);
         String semester = sharedPreferences.getString("semester", null);
         String Registration = sharedPreferences.getString("registration", null);
-        String Phone = sharedPreferences.getString("Phone", null);
+        String Phone = sharedPreferences.getString("phone", null);
         String name = sharedPreferences.getString("name", null);
 
 
@@ -67,7 +67,8 @@ public class WhoAreYou extends AppCompatActivity {
             intent.putExtra("registration", Registration);
             intent.putExtra("phone", Phone);
             intent.putExtra("password", password);
-           // startActivity(intent);
+            startActivity(intent);
+            finish();
 
 
         }
@@ -76,6 +77,7 @@ public class WhoAreYou extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 handleRoleSelection("Student");
+
             }
         });
         faculty_btn.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +112,7 @@ public class WhoAreYou extends AppCompatActivity {
 
             Intent intent = new Intent(WhoAreYou.this, Login.class);
             startActivity(intent);
+            finish();
 
         }
         else if (Objects.equals(selectedRole,"Principle")) {

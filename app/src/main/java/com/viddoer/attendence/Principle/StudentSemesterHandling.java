@@ -1,6 +1,7 @@
 package com.viddoer.attendence.Principle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
@@ -117,6 +119,7 @@ public class StudentSemesterHandling extends AppCompatActivity {
         setContentView(R.layout.activity_student_semester_handling);
         // Lock the screen orientation to portrait
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        this.getSupportActionBar().hide();
 
         branch_code = getIntent().getStringExtra("branch");
         String branch;
@@ -213,7 +216,7 @@ public class StudentSemesterHandling extends AppCompatActivity {
                                 button.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        deletePhp(branch, semester);
+                                        showAlert(branch, semester);
                                     }
                                 });
                             } else {
@@ -246,6 +249,27 @@ public class StudentSemesterHandling extends AppCompatActivity {
 // Add the request to the request queue
         requestQueue.add(stringRequest);
 
+    }
+
+    private void showAlert(String branch, String semester) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Delete Student Data");
+        builder.setMessage("Are You Sure Want to Delete All Student Data!");
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Code to be executed when the user clicks OK button
+                deletePhp(branch, semester);
+                dialog.dismiss(); // Dismiss the dialog
+            }
+        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private void deletePhp(String branch, String semester) {

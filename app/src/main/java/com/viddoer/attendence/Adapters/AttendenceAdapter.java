@@ -111,22 +111,33 @@ public class AttendenceAdapter extends RecyclerView.Adapter<AttendenceAdapter.At
         if (position == attendanceModels.size() - 1) {
             holder.button.setVisibility(View.VISIBLE);
             holder.button.setOnClickListener(v -> {
+                // Check if attendance for all students is marked
+                boolean allAttendanceMarked = isAllAttendanceMarked();
 
-                if (sizes == size){
+                if (allAttendanceMarked) {
                     BottomSheetFragment bottomSheetFragment = new BottomSheetFragment();
                     bottomSheetFragment.setStudentList(new ArrayList<>(all_student), attendanceModels.get(position).getSubject());
                     bottomSheetFragment.show(((AppCompatActivity) v.getContext()).getSupportFragmentManager(), bottomSheetFragment.getTag());
-
-                }
-                else {
+                } else {
                     Toast.makeText(context, "Mark all attendance", Toast.LENGTH_SHORT).show();
                 }
-
-
             });
+
         } else {
             holder.button.setVisibility(View.GONE);
         }
+    }
+    private boolean isAllAttendanceMarked() {
+        // Iterate through the attendance status of each student
+        for (AttendenceModel model : attendanceModels) {
+            String presentKey = model.getName() + "," + model.getRoll_no() + ",Present," + model.getSubject();
+            String absentKey = model.getName() + "," + model.getRoll_no() + ",Absent," + model.getSubject();
+            // Check if both present and absent statuses are marked for each student
+            if (!all_student.contains(presentKey) && !all_student.contains(absentKey)) {
+                return false; // Attendance for at least one student is not marked
+            }
+        }
+        return true; // Attendance for all students is marked
     }
 
 

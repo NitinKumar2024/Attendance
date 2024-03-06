@@ -1,11 +1,13 @@
 package com.viddoer.attendence.Faculties;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -32,6 +34,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.viddoer.attendence.Adapters.AdvanceAdapter;
 import com.viddoer.attendence.Adapters.AttendenceAdapter;
+import com.viddoer.attendence.FeedbackBottomSheet;
 import com.viddoer.attendence.Models.AdvancedAttendanceModel;
 import com.viddoer.attendence.Models.AttendenceModel;
 import com.viddoer.attendence.R;
@@ -178,7 +181,7 @@ public class AllAttendanceViewDownload extends AppCompatActivity {
 //                    // Close the document
 //                    document.close();
 //                }
-                excel();
+                showAlert();
             }
         });
 
@@ -422,6 +425,36 @@ public class AllAttendanceViewDownload extends AppCompatActivity {
             progressBar.setVisibility(View.GONE);
         }
     }
+    private void feedback(){
+
+        FeedbackBottomSheet bottomSheetFragment = new FeedbackBottomSheet();
+        bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
+
+    }
+
+    private void showAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Provide Feedback!");
+        builder.setMessage("Do You Want to Provide Feedback!");
+        builder.setPositiveButton("Feedback", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Code to be executed when the user clicks OK button
+                feedback();
+
+                dialog.dismiss(); // Dismiss the dialog
+            }
+        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                excel();
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
 
     private void parseJSONResponse(JSONArray response) {
         // Parse the JSON response and populate studentList

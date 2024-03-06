@@ -3,11 +3,13 @@ package com.viddoer.attendence.Students;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +31,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.viddoer.attendence.Faculties.AllAttendanceViewDownload;
 import com.viddoer.attendence.MainActivity;
 import com.viddoer.attendence.R;
 import com.viddoer.attendence.WhoAreYou;
@@ -36,7 +39,9 @@ import com.viddoer.attendence.WhoAreYou;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -160,11 +165,14 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                             public void onResponse(String response) {
                                 // Handle response from server
                                 // You can parse response here if server sends any
-                                Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
+                             //   Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
 
                                 if (response.contains("Student details inserted successfully")){
-                                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                                    startActivity(intent);
+                                    Toast.makeText(getActivity(), "Attendance Marked", Toast.LENGTH_SHORT).show();
+                                    showAlert(subject);
+                                }
+                                else {
+                                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
                                 }
 
                                 progressDialog.dismiss(); // Dismiss the progress dialog after receiving response
@@ -195,6 +203,43 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
         return view;
     }
+
+    private void showAlert(String subject) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("View Attendance");
+        builder.setMessage("Do You Want to View Your Attendance?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Code to be executed when the user clicks OK button
+                Date currentDate = new Date();
+
+                // Define a date format
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+                // Format the date object using the specified format
+                String formattedDate = dateFormat.format(currentDate);
+                Intent intent = new Intent(getContext(), AllAttendanceViewDownload.class);
+                intent.putExtra("date", formattedDate);
+                intent.putExtra("subject", subject);
+                startActivity(intent);
+                getActivity().finish();
+
+                dialog.dismiss(); // Dismiss the dialog
+            }
+        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
 
 
     private void showToast(String message) {
