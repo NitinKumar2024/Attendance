@@ -47,6 +47,8 @@ public class FeedbackBottomSheet extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feedback_bottom_sheet, container, false);
+
+        // Githun Editior
         // Initialize views and set up any necessary listeners here
 
         // Find views by their IDs
