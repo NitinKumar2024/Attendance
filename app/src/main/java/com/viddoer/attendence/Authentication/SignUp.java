@@ -1,10 +1,5 @@
 package com.viddoer.attendence.Authentication;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,10 +10,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -34,13 +31,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.viddoer.attendence.MainActivity;
+import com.viddoer.attendence.ApiUrls;
 import com.viddoer.attendence.R;
 import com.viddoer.attendence.StudentDashBoard;
 
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,7 +42,7 @@ public class SignUp extends AppCompatActivity {
 
     private TextInputEditText passwordEditText, name, email, number;
     private FirebaseAuth firebaseAuth;
-    String url = "https://viddoer.com/attendance/another/register.php";
+    String url = ApiUrls.SignUp_url;
 
 
     @Override

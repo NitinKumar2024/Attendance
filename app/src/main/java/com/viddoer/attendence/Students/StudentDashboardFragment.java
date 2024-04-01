@@ -2,17 +2,16 @@ package com.viddoer.attendence.Students;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,8 +21,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.viddoer.attendence.Adapters.StudentSubjectAdapter;
+import com.viddoer.attendence.ApiUrls;
 import com.viddoer.attendence.Models.StudentSubjectModel;
-import com.viddoer.attendence.Principle.PrincipalAssignTeacher;
 import com.viddoer.attendence.R;
 
 import org.json.JSONArray;
@@ -38,7 +37,7 @@ import java.util.Map;
 
 public class StudentDashboardFragment extends Fragment {
     private String name, email, registration, phone, semester, password, branch, roll;
-    private static final String PHP_SCRIPT_URL = "https://viddoer.com/attendance/gpbarh/student_all_subject.php";
+    private static final String PHP_SCRIPT_URL = ApiUrls.StudentDashboardFragment_PHP_SCRIPT_URL;
     ProgressBar progressBar;
     List<StudentSubjectModel> subjectList = new ArrayList<>();
     RecyclerView recyclerView;
@@ -187,7 +186,7 @@ public class StudentDashboardFragment extends Fragment {
                 String branch = studentObject.getString("Branch");
                 String branch_code = studentObject.getString("Branch_Code");
                 String semester = studentObject.getString("semester");
-                subjectList.add(new StudentSubjectModel(subject_code, branch_code, roll, subject));
+                subjectList.add(new StudentSubjectModel(subject_code, branch_code, roll, subject, "report"));
 
             }
 

@@ -1,42 +1,37 @@
 package com.viddoer.attendence.Faculties;
 
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.pdf.PdfDocument;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Environment;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.viddoer.attendence.Adapters.AdvanceAdapter;
-import com.viddoer.attendence.Adapters.AttendenceAdapter;
+import com.viddoer.attendence.ApiUrls;
 import com.viddoer.attendence.FeedbackBottomSheet;
 import com.viddoer.attendence.Models.AdvancedAttendanceModel;
-import com.viddoer.attendence.Models.AttendenceModel;
 import com.viddoer.attendence.R;
 
 import org.apache.poi.ss.usermodel.Row;
@@ -50,7 +45,6 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -61,14 +55,18 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import cz.msebera.android.httpclient.Header;
+
 public class AllAttendanceViewDownload extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     ProgressBar progressBar;
-    String subject;
+    String subject, subject_name;
     List<AdvancedAttendanceModel> contactList = new ArrayList<>();
-    private static final String PHP_SCRIPT_URL = "https://viddoer.com/attendance/gpbarh/view_download.php";
-    String PHP_SCRIPT_URL_Range = "https://viddoer.com/attendance/gpbarh/view_download_range.php";
+    private static final String PHP_SCRIPT_URL = ApiUrls.AllAttendanceViewDownload_PHP_SCRIPT_URL;
+    String PHP_SCRIPT_URL_Range = ApiUrls.AllAttendanceViewDownload_HP_SCRIPT_URL_Range;
+    String PHP_SCRIPT_URL_PDF = ApiUrls.AllAttendanceViewDownload_pdf_url;
+    String singleDate, pairDate1, pairDate2;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -83,10 +81,11 @@ public class AllAttendanceViewDownload extends AppCompatActivity {
         getSupportActionBar().hide();
         FloatingActionButton floatingActionButton = findViewById(R.id.add_note);
 
-        String singleDate = getIntent().getStringExtra("date");
-        String pairDate1 = getIntent().getStringExtra("date1");
-        String pairDate2 = getIntent().getStringExtra("date2");
+        singleDate = getIntent().getStringExtra("date");
+        pairDate1 = getIntent().getStringExtra("date1");
+        pairDate2 = getIntent().getStringExtra("date2");
         subject = getIntent().getStringExtra("subject");
+        subject_name = getIntent().getStringExtra("subject_name");
 
         if (TextUtils.isEmpty(singleDate)){
             // Perform task which is fetch all range data between pairDate1 to pairDate2
@@ -108,80 +107,7 @@ public class AllAttendanceViewDownload extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                // Create a new PDF document
-//                PdfDocument document = new PdfDocument();
-//
-//                // Create a page info with the page size and margins
-//                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(995, 842, 1).create();
-//
-//                // Start a page
-//                PdfDocument.Page page = document.startPage(pageInfo);
-//
-//                // Get the canvas of the page
-//                Canvas canvas = page.getCanvas();
-//
-//                // Set up the paint for drawing
-//                Paint paint = new Paint();
-//                paint.setColor(Color.BLACK);
-//                paint.setTextSize(12);
-//
-//                // Define the starting position for the content
-//                int x = 50;
-//                int y = 50;
-//
-//                // Iterate through the adapter data and draw each item on the page
-//                for (int i = 0; i < recyclerView.getChildCount(); i++) {
-//                    View itemView = recyclerView.getChildAt(i);
-//                    recyclerView.getLayoutManager().measureChildWithMargins(itemView, 0, 0);
-//                    int height = itemView.getMeasuredHeight();
-//                    Bitmap bitmap = Bitmap.createBitmap(itemView.getWidth(), height, Bitmap.Config.ARGB_8888);
-//                    Canvas itemCanvas = new Canvas(bitmap);
-//                    itemView.draw(itemCanvas);
-//                    if (y + height > pageInfo.getPageHeight() - 50) {
-//                        document.finishPage(page); // Finish current page
-//                        page = document.startPage(pageInfo); // Start a new page
-//                        canvas = page.getCanvas(); // Get canvas of new page
-//                        y = 50; // Reset y position
-//                    }
-//                    canvas.drawBitmap(bitmap, x, y, paint);
-//                    y += height;
-//                }
-//
-//                // Finish the page
-//                document.finishPage(page);
-//
-//                // Save the document
-//                try {
-//                    // Directory where the PDF will be saved
-//                    File pdfDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "EduMark/PDF");
-//                    pdfDir.mkdirs(); // Ensure the directory exists
-//
-//                    // File path for the PDF
-//                    // Generate a unique filename based on the current timestamp
-//                    String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-//
-//                    String pdfFileName = subject + timestamp + ".pdf";
-//                    File pdfFile = new File(pdfDir, pdfFileName);
-//                    String pdfPath = pdfFile.getAbsolutePath();
-//
-//                    // Write the document to the file
-//                    document.writeTo(new FileOutputStream(pdfFile));
-//
-//                    // Open the PDF with an intent
-//                    Intent intent = new Intent(Intent.ACTION_VIEW);
-//                    Uri uri = FileProvider.getUriForFile(AllAttendanceViewDownload.this, getPackageName() + ".fileprovider", pdfFile);
-//                    intent.setDataAndType(uri, "application/pdf");
-//                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                    startActivity(intent);
-//
-//                    Toast.makeText(getApplicationContext(), "PDF created successfully!", Toast.LENGTH_SHORT).show();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                    Toast.makeText(getApplicationContext(), "Error creating PDF: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                } finally {
-//                    // Close the document
-//                    document.close();
-//                }
-                showAlert();
+                chooseExportAlert();
             }
         });
 
@@ -283,8 +209,6 @@ public class AllAttendanceViewDownload extends AppCompatActivity {
     private void retrieveAIStudents(String date, String subject_name) {
         progressBar.setVisibility(View.VISIBLE);
         String singleDate = getIntent().getStringExtra("date");
-        String pairDate1 = getIntent().getStringExtra("date1");
-        String pairDate2 = getIntent().getStringExtra("date2");
         String subject = getIntent().getStringExtra("subject");
 
         // Convert studentList to JSON Array
@@ -396,14 +320,14 @@ public class AllAttendanceViewDownload extends AppCompatActivity {
                 row.createCell(3).setCellValue(attendance.getStatus());
             }
             // Directory where the PDF will be saved
-            File pdfDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "EduMark/PDF");
+            File pdfDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "EduMark/EXCEL");
             pdfDir.mkdirs(); // Ensure the directory exists
 
             // File path for the PDF
             // Generate a unique filename based on the current timestamp
             String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
 
-            String pdfFileName = subject + timestamp + ".xlsx";
+            String pdfFileName = subject_name + timestamp + ".xlsx";
             File pdfFile = new File(pdfDir, pdfFileName);
             String pdfPath = pdfFile.getAbsolutePath();
 
@@ -432,6 +356,47 @@ public class AllAttendanceViewDownload extends AppCompatActivity {
 
     }
 
+    private void chooseExportAlert(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // Inflate the custom layout for the dialog
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view = inflater.inflate(R.layout.dialog_export_options, null);
+
+        // Set the custom view to the dialog
+        builder.setView(view);
+
+        // Find views in the custom layout
+        Button pdfButton = view.findViewById(R.id.btn_pdf);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button excelButton = view.findViewById(R.id.btn_excel);
+
+        // Set onClickListeners for the buttons
+        pdfButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle PDF export
+                // You can add your PDF export logic here
+                if (singleDate!=null){
+                    export_pdf_date(singleDate, subject_name);
+                }
+
+            }
+        });
+
+        excelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle Excel export
+                // You can add your Excel export logic here
+                showAlert();
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     private void showAlert() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Provide Feedback!");
@@ -454,6 +419,127 @@ public class AllAttendanceViewDownload extends AppCompatActivity {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
+    private void export_pdf_date(String date, String subject_name) {
+        progressBar.setVisibility(View.VISIBLE);
+        String singleDate = getIntent().getStringExtra("date");
+        String subject = getIntent().getStringExtra("subject");
+
+        // Convert studentList to JSON Array
+        JSONArray jsonArray = new JSONArray();
+
+        JSONObject studentObject = new JSONObject();
+        try {
+            studentObject.put("name", subject);
+            studentObject.put("date", singleDate);
+            studentObject.put("file", subject_name);
+
+            jsonArray.put(studentObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            progressBar.setVisibility(View.GONE);
+        }
+
+        // Create a JSON object to hold the student list
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("students", jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            progressBar.setVisibility(View.GONE);
+        }
+
+        // Create a request queue
+        RequestQueue requestQueue = Volley.newRequestQueue(AllAttendanceViewDownload.this);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, PHP_SCRIPT_URL_PDF,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Handle response from server
+                        // Trim the response string to remove any leading/trailing whitespaces
+                        response = response.trim();
+
+                        if (!TextUtils.isEmpty(response)) {
+                            try {
+                                // Convert JSON response to JSONObject
+                                JSONObject jsonResponse = new JSONObject(response);
+
+                                // Get the file path from the response
+                                String filePath = jsonResponse.getString("filePath");
+
+                                // Directory where the PDF will be saved
+                                File pdfDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "EduMark/PDF");
+                                pdfDir.mkdirs(); // Ensure the directory exists
+
+                                // Create a file to save the PDF
+                                String url = "https://viddoer.com/attendance/gpbarh/View&Delete/";
+                                String fileName = url + filePath;
+                                // Generate a unique filename based on the current timestamp
+                                String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+
+                                String pdfFileName = subject_name + timestamp + ".pdf";
+                                File pdfFile = new File(pdfDir, pdfFileName);
+
+                                // Download the PDF file from the server
+                                downloadFile(fileName, pdfFile);
+
+                                // Notify user about successful PDF export
+                                Toast.makeText(AllAttendanceViewDownload.this, "PDF file exported successfully", Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(AllAttendanceViewDownload.this, "Error parsing JSON response", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            // Handle the case where the response is empty
+                            Toast.makeText(AllAttendanceViewDownload.this, "Empty response received", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                        progressBar.setVisibility(View.GONE);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle error
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(AllAttendanceViewDownload.this, error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                // Create a HashMap to store parameters
+                Map<String, String> params = new HashMap<>();
+                params.put("students", jsonObject.toString()); // Add student JSON object as a parameter
+                return params;
+            }
+        };
+
+        // Add the request to the request queue
+        requestQueue.add(stringRequest);
+    }
+
+    private void downloadFile(String fileUrl, File outputFile) {
+        // Use AsyncHttpClient to download the file
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(fileUrl, new FileAsyncHttpResponseHandler(outputFile) {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, File response) {
+                // File download success
+                // Notify user about successful PDF export
+                Toast.makeText(AllAttendanceViewDownload.this, "PDF file exported successfully", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+                // File download failure
+                Toast.makeText(AllAttendanceViewDownload.this, "Error downloading PDF file", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
 
 
     private void parseJSONResponse(JSONArray response) {
@@ -487,66 +573,4 @@ public class AllAttendanceViewDownload extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-//    private void retrieveAIStudents(String subject, String date) {
-//        progressBar.setVisibility(View.VISIBLE);
-//
-//        // Create a JSONObject to hold the parameters
-//        JSONObject jsonParams = new JSONObject();
-//        try {
-//            jsonParams.put("subject", subject);
-//            jsonParams.put("date", date);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//        // Create a request queue
-//        RequestQueue requestQueue = Volley.newRequestQueue(AllAttendanceViewDownload.this);
-//
-//        // Create a JsonObjectRequest to send POST request to the PHP script URL
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, PHP_SCRIPT_URL, jsonParams,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        // Handle the JSON response from the PHP script
-//                        parseJSONResponse(response);
-//                        // Update RecyclerView adapter
-//                        AdvanceAdapter adapter = new AdvanceAdapter(getApplicationContext(), contactList);
-//                        recyclerView.setAdapter(adapter);
-//                        progressBar.setVisibility(View.GONE);
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        // Handle errors
-//                        Log.e("Error", error.toString());
-//                        // Example: Show error message
-//                        Toast.makeText(AllAttendanceViewDownload.this, error.toString(), Toast.LENGTH_SHORT).show();
-//                        progressBar.setVisibility(View.GONE);
-//                    }
-//                });
-//
-//        // Add the request to the request queue
-//        requestQueue.add(jsonObjectRequest);
-//    }
-
-//    private void parseJSONResponse(JSONObject response) {
-//        // Parse the JSON response and populate studentList
-//        try {
-//            JSONArray jsonArray = response.getJSONArray("students");
-//            for (int i = 0; i < jsonArray.length(); i++) {
-//                JSONObject studentObject = jsonArray.getJSONObject(i);
-//                String name = studentObject.getString("username");
-//                String rollNo = studentObject.getString("Roll");
-//                String status = studentObject.getString("user_status");
-//                String date = studentObject.getString("Date");
-//                // Add the parsed data to the studentList
-//                contactList.add(new AdvancedAttendanceModel(name, rollNo, status, date));
-//            }
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
 }

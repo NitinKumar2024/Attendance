@@ -1,29 +1,20 @@
 package com.viddoer.attendence.Principle;
 
-import static android.app.Activity.RESULT_OK;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -31,12 +22,9 @@ import com.google.firebase.storage.UploadTask;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.viddoer.attendence.Adapters.ExpandableListAdapter;
-import com.viddoer.attendence.Adapters.StudentAddAdapter;
-import com.viddoer.attendence.FileUtils;
 import com.viddoer.attendence.Models.StudentAddModel;
 import com.viddoer.attendence.R;
 
-import org.apache.commons.compress.archivers.dump.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -44,9 +32,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,8 +43,6 @@ import cz.msebera.android.httpclient.Header;
 public class PrincipleAddStudent extends Fragment {
     private static final int PICK_EXCEL_FILE = 123;
     ProgressDialog progressDialog;
-
-    // String url = "https://firebasestorage.googleapis.com/v0/b/viddoer.appspot.com/o/aiml%204th.xlsx?alt=media&token=94f1ca95-f4d0-425f-affe-54f92e9f8cb8";
     AsyncHttpClient client;
     RecyclerView recyclerView;
     private ExpandableListView expandableListView;

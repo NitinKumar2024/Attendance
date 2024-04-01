@@ -26,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.viddoer.attendence.ApiUrls;
 import com.viddoer.attendence.R;
 
 import org.json.JSONArray;
@@ -41,7 +42,7 @@ public class PrincipleAddFaculty extends Fragment {
 
     private DatabaseReference databaseReference;
     ProgressBar progressBar;
-    String url = "https://viddoer.com/attendance/gpbarh/principle_dashboard.php";
+    String url = ApiUrls.PrincipleAddFaculty_url;
     List<FacultyItem> facultyList = new ArrayList<>();
     RecyclerView recyclerView;
 

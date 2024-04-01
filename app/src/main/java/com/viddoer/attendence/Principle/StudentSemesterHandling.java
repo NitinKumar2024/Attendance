@@ -33,6 +33,7 @@ import com.google.firebase.storage.UploadTask;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.viddoer.attendence.Adapters.StudentAddAdapter;
+import com.viddoer.attendence.ApiUrls;
 import com.viddoer.attendence.MainActivity;
 import com.viddoer.attendence.Models.StudentAddModel;
 import com.viddoer.attendence.R;
@@ -74,9 +75,9 @@ public class StudentSemesterHandling extends AppCompatActivity {
     private List<StudentAddModel> studentList;
     String branch_code;
     ProgressBar progressBar;
-    String url = "https://viddoer.com/attendance/gpbarh/student_insert_table.php";
-    private static final String PHP_SCRIPT_URL = "https://viddoer.com/attendance/gpbarh/view_attendance_php.php";
-    private static final String PHP_SCRIPT_URL_delete = "https://viddoer.com/attendance/gpbarh/View&Delete/student_delete_data.php";
+    String url = ApiUrls.StudentSemesterHandling_url;
+    private static final String PHP_SCRIPT_URL = ApiUrls.StudentSemesterHandling_PHP_SCRIPT_URL;
+    private static final String PHP_SCRIPT_URL_delete = ApiUrls.StudentSemesterHandling_PHP_SCRIPT_URL_delete;
     // Define a method to generate a random password
     public static String generateRandomPassword(int length) {
         StringBuilder password = new StringBuilder();

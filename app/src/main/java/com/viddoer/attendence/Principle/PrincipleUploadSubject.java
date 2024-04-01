@@ -28,6 +28,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
+import com.viddoer.attendence.ApiUrls;
 import com.viddoer.attendence.Models.PrincipleUploadSubjectModel;
 import com.viddoer.attendence.R;
 
@@ -58,7 +59,7 @@ public class PrincipleUploadSubject extends Fragment {
     private static final int PICK_EXCEL_FILE = 123;
     private List<PrincipleUploadSubjectModel> studentList;
 
-    String url = "https://viddoer.com/attendance/gpbarh/upload_subject.php";
+    String url = ApiUrls.PrincipleUploadSubject_url;
 
     @SuppressLint({"MissingInflatedId", "LocalSuppress"})
     @Override

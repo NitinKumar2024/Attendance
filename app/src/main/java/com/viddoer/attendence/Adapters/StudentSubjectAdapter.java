@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.viddoer.attendence.Models.StudentSubjectModel;
 import com.viddoer.attendence.R;
+import com.viddoer.attendence.Students.StudentFrontDashboard.AllStudentRankDisplayActivity;
 import com.viddoer.attendence.Students.StudentSubjectDisplay;
 
 import java.util.List;
@@ -40,16 +41,32 @@ public class StudentSubjectAdapter extends RecyclerView.Adapter<StudentSubjectAd
 
         // Set the subject name to the TextView
         holder.subjectTextView.setText(subjectModel.getSubject());
+        String role = subjectModel.getRole();
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), StudentSubjectDisplay.class);
-                intent.putExtra("subject", subjectModel.getSubject());
-                intent.putExtra("subject_code", subjectModel.getSubject_code());
-                intent.putExtra("branch_code", subjectModel.getBranch_code());
-                intent.putExtra("roll", subjectModel.getRoll_no());
-                v.getContext().startActivity(intent);
+                if (role.equals("rank")){
+
+                    Intent intent = new Intent(v.getContext(), AllStudentRankDisplayActivity.class);
+                    intent.putExtra("subject", subjectModel.getSubject());
+                    intent.putExtra("subject_code", subjectModel.getSubject_code());
+                    intent.putExtra("branch_code", subjectModel.getBranch_code());
+                    intent.putExtra("roll", subjectModel.getRoll_no());
+                    v.getContext().startActivity(intent);
+
+
+                }
+                else {
+
+                    Intent intent = new Intent(v.getContext(), StudentSubjectDisplay.class);
+                    intent.putExtra("subject", subjectModel.getSubject());
+                    intent.putExtra("subject_code", subjectModel.getSubject_code());
+                    intent.putExtra("branch_code", subjectModel.getBranch_code());
+                    intent.putExtra("roll", subjectModel.getRoll_no());
+                    v.getContext().startActivity(intent);
+
+                }
             }
         });
     }

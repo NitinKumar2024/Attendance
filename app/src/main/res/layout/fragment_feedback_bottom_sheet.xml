@@ -1,54 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:padding="16dp"
-    android:background="@drawable/bottomsheetbackground">
+    android:layout_margin="18dp"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="8dp"
 
-    <!-- Feedback Icon -->
-    <ImageView
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:src="@drawable/ic_feedback"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="24dp"/>
-
-    <!-- Feedback Title -->
-    <TextView
-        android:id="@+id/text_feedback_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="We'd Love Your Feedback!"
-        android:textSize="22sp"
-        android:textColor="@color/purple_200"
-        android:layout_gravity="center"
-        android:layout_marginBottom="24dp"/>
-
-    <!-- Feedback Input -->
-    <EditText
-        android:id="@+id/edit_text_feedback"
+    app:cardUseCompatPadding="true"
+    >
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/purple_200"
-        android:hint="Tell me how to improve our product"
-        android:textColorHint="@color/purple_200"
-        android:textSize="16sp"
-        android:background="@drawable/edittext_background"
-        android:padding="16dp"
-        android:layout_marginBottom="24dp"/>
+        android:orientation="vertical"
 
-    <!-- Submit Button -->
-    <Button
-        android:id="@+id/button_submit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="26dp"
-        android:text="Submit"
-        android:layout_alignParentBottom="true"
-        style="@style/Widget.App.Button.Primary"
-        android:textColor="#E91E63"
-        android:background="@drawable/rounded_corner"
-        android:layout_marginTop="24dp"/>
+        android:background="@drawable/bottomsheetbackground">
 
-</LinearLayout>
+
+
+        <!-- Feedback Icon -->
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/ic_feedback"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Feedback Title -->
+        <TextView
+            android:id="@+id/text_feedback_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="We'd Love Your Feedback!"
+            android:textSize="22sp"
+            android:textColor="@color/purple_200"
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Feedback Input -->
+        <EditText
+            android:id="@+id/edit_text_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/purple_200"
+            android:hint="Tell me how to improve our product"
+            android:textColorHint="@color/purple_200"
+            android:textSize="16sp"
+            android:maxLines="8"
+            android:background="@drawable/edittext_background"
+            android:padding="16dp"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Submit Button -->
+        <Button
+            android:id="@+id/button_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="26dp"
+            android:text="Submit"
+            android:layout_alignParentBottom="true"
+            style="@style/Widget.App.Button.Primary"
+            android:textColor="#E91E63"
+            android:background="@drawable/rounded_corner"
+            android:layout_marginTop="24dp"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

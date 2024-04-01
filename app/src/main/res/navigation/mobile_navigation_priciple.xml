@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation_principle"
+    app:startDestination="@+id/principle_home"
+    tools:ignore="InvalidNavigation">
+
+    <fragment
+        android:id="@+id/principle_home"
+        android:name="com.viddoer.attendence.Principle.All_Fragements.PrincipleHomeFragement"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_principle_home_fragement" />
+
+    <fragment
+        android:id="@+id/principle_dashboard"
+        android:name="com.viddoer.attendence.Principle.All_Fragements.PricipleStudentFragement"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_priciple_student_fragement" />
+
+
+</navigation>

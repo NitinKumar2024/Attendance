@@ -1,16 +1,7 @@
 package com.viddoer.attendence.Faculties;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,24 +9,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.viddoer.attendence.Adapters.AttendenceAdapter;
-import com.viddoer.attendence.AllStudentDisplay;
-import com.viddoer.attendence.MainActivity;
+import com.viddoer.attendence.ApiUrls;
 import com.viddoer.attendence.Models.AttendenceModel;
 import com.viddoer.attendence.R;
-import com.viddoer.attendence.Students.Student;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,7 +32,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 
 public class RemarkAttendence extends Fragment {
@@ -57,7 +43,7 @@ public class RemarkAttendence extends Fragment {
     RecyclerView recyclerView;
     ProgressBar progressBar;
     // Define your PHP script URL
-    private static final String PHP_SCRIPT_URL = "https://viddoer.com/attendance/gpbarh/view_attendance_php.php";
+    private static final String PHP_SCRIPT_URL = ApiUrls.RemarkAttendence_PHP_SCRIPT_URL;
 
     public void setData(String branch, String semester, String subject, String subject_code) {
         this.branch = branch;

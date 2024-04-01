@@ -1,0 +1,89 @@
+<!-- item_list_student.xml -->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/cardView1"
+    android:layout_margin="8dp"
+
+    app:cardCornerRadius="15dp"
+    app:cardElevation="4dp"
+
+    app:cardUseCompatPadding="true">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="@color/absentColor"
+        android:id="@+id/linearLayout"
+        >
+
+        <ImageView
+            android:id="@+id/image_user"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/ic_college"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp">
+
+            <TextView
+                android:id="@+id/text_roll_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="010"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:gravity="start"/>
+
+            <TextView
+                android:id="@+id/text_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nitin Kumar"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:gravity="start"/>
+
+            <TextView
+                android:id="@+id/text_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rank: 50"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:gravity="start"/>
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            />
+
+        <TextView
+            android:id="@+id/text_percentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="50%"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

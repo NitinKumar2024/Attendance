@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CalendarView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,31 +19,18 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.viddoer.attendence.Principle.PrincipalAssignTeacher;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.viddoer.attendence.ApiUrls;
 import com.viddoer.attendence.R;
-
-import java.util.Arrays;
-import java.util.Calendar;
-
-import androidx.annotation.NonNull;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -56,7 +44,7 @@ public class StudentSubjectDisplay extends AppCompatActivity {
     private ArrayList<String> presentDates;
     private ArrayList<String> totalDays;
     ProgressBar progressBar;
-    private static final String PHP_SCRIPT_URL = "https://viddoer.com/attendance/gpbarh/student_attendance_filter.php";
+    private static final String PHP_SCRIPT_URL = ApiUrls.StudentSubjectDisplay_PHP_SCRIPT_URL;
     String branch_code, subject, subject_code, roll, complete_subject;
 
     @SuppressLint({"MissingInflatedId", "SetTextI18n", "DefaultLocale"})
@@ -79,6 +67,8 @@ public class StudentSubjectDisplay extends AppCompatActivity {
         subject = getIntent().getStringExtra("subject");
         String best_subject = getIntent().getStringExtra("complete_subject");
         complete_subject = branch_code + subject_code;
+        TextView textView = findViewById(R.id.textViewTitle);
+        textView.setText(subject);
 
         if (best_subject!=null){
             student_attendance_filter(best_subject, roll);
@@ -94,12 +84,8 @@ public class StudentSubjectDisplay extends AppCompatActivity {
 
     }
     private void plot(){
-        BarChart attendanceChart = findViewById(R.id.attendanceChart);
+        CalendarView calendarView = findViewById(R.id.calendarView);
 
-        // Sample data (replace with your actual data)
-        // List<String> presentDates = Arrays.asList("2024-03-01", "2024-03-03", "2024-03-05", "2024-03-08");
-        //  List<String> absentDates = Arrays.asList("2024-03-02", "2024-03-04", "2024-03-06");
-        // List<String> totalDates = Arrays.asList("2024-03-01", "2024-03-02", "2024-03-03", "2024-03-04", "2024-03-05", "2024-03-06", "2024-03-07", "2024-03-08");
 
         int presentCount = countUniqueDates(presentDates);
         int absentCount = countUniqueDates(absentDates);
@@ -107,16 +93,6 @@ public class StudentSubjectDisplay extends AppCompatActivity {
 
         float presentPercentage = calculatePercentage(presentCount, totalCount);
 
-        BarDataSet dataSet = createBarDataSet(presentCount, absentCount, totalCount, presentPercentage);
-        dataSet.setColors(Color.GREEN, Color.RED, Color.BLUE);  // Green for Present, Red for Absent, Blue for Total
-        dataSet.setStackLabels(new String[]{"Present", "Absent", "Total"});
-
-        BarData barData = new BarData(dataSet);
-        barData.setBarWidth(0.9f);  // Adjust bar width as needed
-
-        attendanceChart.setData(barData);
-        attendanceChart.setFitBars(true);
-        attendanceChart.invalidate();
 
         // Display the counts and percentage
         TextView presentCountTextView = findViewById(R.id.presentCountTextView);
@@ -132,13 +108,54 @@ public class StudentSubjectDisplay extends AppCompatActivity {
         // Customize chart appearance and labels if necessary
         // Add axis labels, legend, and other styling options
 
-    }
+        PieChart pieChart = findViewById(R.id.pieChart);
 
-    private BarDataSet createBarDataSet(int presentCount, int absentCount, int totalCount, float presentPercentage) {
-        List<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(0, new float[]{presentCount, absentCount, totalCount}));
+        List<PieEntry> entries = new ArrayList<>();
+        entries.add(new PieEntry(absentCount, "Absent"));
+        entries.add(new PieEntry(presentCount, "Present"));
 
-        return new BarDataSet(entries, "Attendance Data");
+        PieDataSet dataSet = new PieDataSet(entries, "Attendance");
+
+// Set custom colors for each entry
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(Color.RED);    // Color for "Absent"
+        colors.add(Color.GREEN);  // Color for "Present"
+        dataSet.setColors(colors);
+
+        PieData data = new PieData(dataSet);
+        pieChart.setData(data);
+
+// Customize the chart as needed
+        pieChart.setHoleRadius(25f);
+        pieChart.setTransparentCircleRadius(30f);
+
+        pieChart.invalidate(); // Refresh the chart
+
+        ImageView studentStatusImageView = findViewById(R.id.bottomImageView);
+
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                // Handle the selected date
+                String selectedDate = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth);
+
+                // Perform actions with the selected date
+               if (presentDates.contains(selectedDate)){
+                   studentStatusImageView.setImageResource(R.drawable.ic_present);
+
+               } else if (absentDates.contains(selectedDate)) {
+                   studentStatusImageView.setImageResource(R.drawable.ic_absent);
+
+               }
+               else {
+                   studentStatusImageView.setImageResource(R.drawable.ic_holiday);
+               }
+
+            }
+        });
+
+
+
     }
 
     private int countUniqueDates(List<String> dates) {
@@ -246,17 +263,20 @@ public class StudentSubjectDisplay extends AppCompatActivity {
                 String user_status = studentObject.getString("user_status");
                 totalDays.add(date);
 
+
                 if (user_status.equals("Present")){
-                    presentDates.add(user_status);
+                    presentDates.add(date);
                   //  Toast.makeText(this, user_status, Toast.LENGTH_SHORT).show();
                 } else if (user_status.equals("Absent")) {
 
-                    absentDates.add("Absent");
+                    absentDates.add(date);
+
 
                 }
                 else {
                     Toast.makeText(this, "Your Attendance is not Valid.", Toast.LENGTH_SHORT).show();
                 }
+
 
                 //  all_subject.add(subject + "," + subject_code + "," + branch + "," + branch_code + "," + semester);
             }

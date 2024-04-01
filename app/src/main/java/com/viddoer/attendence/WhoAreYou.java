@@ -1,32 +1,20 @@
 package com.viddoer.attendence;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.viddoer.attendence.Authentication.Login;
-import com.viddoer.attendence.Authentication.SignUp;
-import com.viddoer.attendence.Authentication.TeacherLogin;
-import com.viddoer.attendence.Principle.PrincipleDashboard;
-import com.viddoer.attendence.ui.notifications.NotificationsFragment;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import com.viddoer.attendence.Authentication.Login;
+import com.viddoer.attendence.Authentication.TeacherLogin;
+import com.viddoer.attendence.Students.StudentFrontDashboard.StudentFrontActivity;
+
 import java.util.Objects;
 
 public class WhoAreYou extends AppCompatActivity {
@@ -60,7 +48,7 @@ public class WhoAreYou extends AppCompatActivity {
 
 
         if (Email!=null && password != null){
-            Intent intent = new Intent(WhoAreYou.this, StudentDashBoard.class);
+            Intent intent = new Intent(WhoAreYou.this, StudentFrontActivity.class);
             intent.putExtra("name", name);
             intent.putExtra("email", Email);
             intent.putExtra("semester", semester);

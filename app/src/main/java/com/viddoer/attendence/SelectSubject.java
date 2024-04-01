@@ -1,28 +1,18 @@
 package com.viddoer.attendence;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -30,27 +20,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.viddoer.attendence.Adapters.AttendenceAdapter;
 import com.viddoer.attendence.Adapters.FacultyAllSubjectAdapter;
-import com.viddoer.attendence.Adapters.StudentSubjectAdapter;
-import com.viddoer.attendence.Faculties.RemarkAttendence;
-import com.viddoer.attendence.Faculties.ViewAttendance;
-import com.viddoer.attendence.Models.AttendenceModel;
 import com.viddoer.attendence.Models.FacultyAllSubjectModel;
-import com.viddoer.attendence.Models.StudentSubjectModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 public class SelectSubject extends AppCompatActivity {
 
     List<FacultyAllSubjectModel> subjectList; // Declare but don't initialize here
@@ -58,7 +38,7 @@ public class SelectSubject extends AppCompatActivity {
     FacultyAllSubjectAdapter adapter;
     RecyclerView recyclerView;
     ProgressBar progressBar;
-    private static final String PHP_SCRIPT_URL = "https://viddoer.com/attendance/gpbarh/fetch_faculty_subject.php";
+    private static final String PHP_SCRIPT_URL = ApiUrls.SelectSubject_PHP_SCRIPT_URL;
 
     @SuppressLint("MissingInflatedId")
     @Override

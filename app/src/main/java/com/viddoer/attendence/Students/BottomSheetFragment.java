@@ -2,20 +2,9 @@ package com.viddoer.attendence.Students;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,19 +12,23 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.viddoer.attendence.ApiUrls;
 import com.viddoer.attendence.Faculties.AllAttendanceViewDownload;
 import com.viddoer.attendence.MainActivity;
 import com.viddoer.attendence.R;
-import com.viddoer.attendence.WhoAreYou;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,13 +36,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-
-import org.json.JSONArray;
 
 public class BottomSheetFragment extends BottomSheetDialogFragment {
 
@@ -68,6 +56,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     private StudentAdapter studentAdapter;
     private List<Student> studentList;
     private TextView total_student_number, present_student_number, absent_student_number;
+    String url = ApiUrls.BottomSheetFragment_url;
 
     public BottomSheetFragment() {
         // Required empty public constructor
@@ -86,7 +75,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         // Initialize your studentList with data
         studentList = new ArrayList<>();
         // Assuming you're sending data to http://example.com/submit_students.php
-        String url = "https://viddoer.com/attendance/gpbarh/attendance_reciever.php";
+
 
         int present_student = 0;
         int absent_student = 0;

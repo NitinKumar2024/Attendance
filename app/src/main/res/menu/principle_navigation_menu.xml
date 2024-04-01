@@ -1,0 +1,11 @@
+<!-- res/menu/bottom_navigation_menu_principle.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/principle_home"
+        android:title="Home"
+        android:icon="@drawable/ic_home_black_24dp" />
+    <item
+        android:id="@+id/principle_dashboard"
+        android:title="Dashboard"
+        android:icon="@drawable/ic_dashboard_black_24dp" />
+</menu>

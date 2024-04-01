@@ -4,15 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +19,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.viddoer.attendence.Authentication.ForgotPassword;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,7 +32,7 @@ public class FeedbackBottomSheet extends BottomSheetDialogFragment {
     private EditText feedbackEditText;
     private Button submitButton;
     ProgressDialog progressDialog;
-    private static final String PHP_SCRIPT_URL = "https://viddoer.com/attendance/gpbarh/feedback.php";
+    private static final String PHP_SCRIPT_URL = ApiUrls.FeedbackBottomSheet_PHP_SCRIPT_URL;
 
 
     @Override

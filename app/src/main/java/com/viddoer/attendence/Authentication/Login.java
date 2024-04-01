@@ -1,8 +1,5 @@
 package com.viddoer.attendence.Authentication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -15,39 +12,32 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.viddoer.attendence.Adapters.AdvanceAdapter;
-import com.viddoer.attendence.Faculties.AllAttendanceViewDownload;
-import com.viddoer.attendence.MainActivity;
-import com.viddoer.attendence.Models.AdvancedAttendanceModel;
+import com.viddoer.attendence.ApiUrls;
 import com.viddoer.attendence.R;
-import com.viddoer.attendence.StudentDashBoard;
+import com.viddoer.attendence.Students.StudentFrontDashboard.StudentFrontActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class Login extends AppCompatActivity {
     private TextInputEditText passwordEditText, email;
     private FirebaseAuth auth;
     private ProgressDialog progressDialog;
-    private static final String PHP_SCRIPT_URL = "https://viddoer.com/attendance/gpbarh/student_login.php";
+    private static final String PHP_SCRIPT_URL = ApiUrls.Login_PHP_SCRIPT_URL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,7 +176,7 @@ public class Login extends AppCompatActivity {
               //  Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
 
                 Toast.makeText(this, "Login Successfully", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Login.this, StudentDashBoard.class);
+                Intent intent = new Intent(Login.this, StudentFrontActivity.class);
                 intent.putExtra("name", name);
                 intent.putExtra("email", Email);
                 intent.putExtra("semester", semester);

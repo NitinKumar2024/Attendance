@@ -2,13 +2,11 @@ package com.viddoer.attendence.Students;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+
+import androidx.fragment.app.Fragment;
 
 import com.viddoer.attendence.R;
 
@@ -30,7 +28,7 @@ public class StudentSyllabusFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_student_syllabus, container, false);
 
-        ImageView imageView = view.findViewById(R.id.imageView2);
+
 
 
 

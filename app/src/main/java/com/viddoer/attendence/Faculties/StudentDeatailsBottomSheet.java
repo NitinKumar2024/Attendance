@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.viddoer.attendence.Principle.PrincipalAssignTeacher;
+import com.viddoer.attendence.ApiUrls;
 import com.viddoer.attendence.R;
 import com.viddoer.attendence.Students.StudentSubjectDisplay;
 
@@ -35,14 +34,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class StudentDeatailsBottomSheet extends BottomSheetDialogFragment {
 
     String number, email, complete_subject, name, roll, subject_name;
     ProgressDialog progressDialog;
-    private static final String PHP_SCRIPT_URL = "https://viddoer.com/attendance/gpbarh/send_mail_student_for_low_attendance.php";
+    private static final String PHP_SCRIPT_URL = ApiUrls.StudentDeatailsBottomSheet_PHP_SCRIPT_URL;
 
     TextView user_name, Attendance_report_textView, call_textView, email_textView;
 
@@ -73,20 +71,17 @@ public class StudentDeatailsBottomSheet extends BottomSheetDialogFragment {
 
         user_name.setText(name);
 
-        call_textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    // Permission is not granted
-                    // You can directly request the permission.
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE}, 1);
-                } else {
-                    // Permission has already been granted
-                    // Proceed with the call
-                    makePhoneCall(number);
-                }
-
+        call_textView.setOnClickListener(v -> {
+            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                // Permission is not granted
+                // You can directly request the permission.
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE}, 1);
+            } else {
+                // Permission has already been granted
+                // Proceed with the call
+                makePhoneCall(number);
             }
+
         });
 
         email_textView.setOnClickListener(new View.OnClickListener() {
@@ -95,14 +90,12 @@ public class StudentDeatailsBottomSheet extends BottomSheetDialogFragment {
                 send_mail_for_low_attendance(email, name, subject_name);
             }
         });
-        Attendance_report_textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), StudentSubjectDisplay.class);
-                intent.putExtra("complete_subject", complete_subject);
-                intent.putExtra("roll", roll);
-                startActivity(intent);
-            }
+        Attendance_report_textView.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), StudentSubjectDisplay.class);
+            intent.putExtra("complete_subject", complete_subject);
+            intent.putExtra("roll", roll);
+            intent.putExtra("subject", subject_name);
+            startActivity(intent);
         });
 
 

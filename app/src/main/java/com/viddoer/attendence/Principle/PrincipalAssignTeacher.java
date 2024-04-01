@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.viddoer.attendence.ApiUrls;
 import com.viddoer.attendence.R;
 
 import org.json.JSONArray;
@@ -36,9 +37,9 @@ public class PrincipalAssignTeacher extends AppCompatActivity {
     ProgressDialog progressDialog;
     ArrayList<String> all_subject = new ArrayList<>();
     ArrayList<String> all_faculty = new ArrayList<>();
-    private static final String PHP_SCRIPT_URL = "https://viddoer.com/attendance/gpbarh/fetch_all_subject.php";
-    private static final String PHP_SCRIPT_URL2 = "https://viddoer.com/attendance/gpbarh/fetch_all_faculty.php";
-    private static final String PHP_SCRIPT_URL3 = "https://viddoer.com/attendance/gpbarh/faculty_with_subject.php";
+    private static final String PHP_SCRIPT_URL = ApiUrls.PrincipalAssignTeacher_PHP_SCRIPT_URL;
+    private static final String PHP_SCRIPT_URL2 = ApiUrls.PrincipalAssignTeacher_PHP_SCRIPT_URL2;
+    private static final String PHP_SCRIPT_URL3 = ApiUrls.PrincipalAssignTeacher_PHP_SCRIPT_URL3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

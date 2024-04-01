@@ -3,55 +3,128 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    
     android:padding="16dp">
+    <!-- Title TextView -->
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mathematics"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/attendanceChart"
-        android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="400dp"
         android:layout_marginBottom="16dp"/>
 
-    <TextView
-        android:id="@+id/presentCountTextView"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/attendanceChart"
-        android:layout_marginTop="16dp"
-        android:text="Present: 0"/>
+        android:layout_below="@+id/textViewTitle"
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/absentCountTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/presentCountTextView"
-        android:layout_marginTop="8dp"
-        android:text="Absent: 0"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/totalCountTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/absentCountTextView"
-        android:layout_marginTop="8dp"
-        android:text="Total: 0"/>
+            <!-- CalendarView -->
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"/>
 
-    <TextView
-        android:id="@+id/percentageTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/totalCountTextView"
-        android:layout_marginTop="8dp"
-        android:text="Percentage: 0%"/>
-    <!-- Three-dot Spinner (ProgressBar) -->
-    <ProgressBar
-        android:id="@+id/threeDotSpinner"
-        style="@android:style/Widget.Holo.ProgressBar.Large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="8dp"/>
+            <!-- Image Below CalendarView -->
+            <ImageView
+                android:id="@+id/bottomImageView"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_below="@id/calendarView"
+                android:layout_marginTop="16dp"
 
+                android:scaleType="fitCenter"/>
+
+            <!-- Pie Chart -->
+
+            <!-- Other TextViews -->
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pieChart"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_below="@id/bottomImageView"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:id="@+id/presentCountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pieChart"
+                android:layout_marginTop="16dp"
+                android:text="Present: 0"
+                android:textSize="18sp"
+                android:textColor="#00FF00"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-condensed"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/absentCountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/presentCountTextView"
+                android:layout_marginTop="8dp"
+                android:text="Absent: 0"
+                android:textSize="18sp"
+                android:textColor="#FF0000"
+                android:textStyle="italic"
+                android:fontFamily="serif"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/totalCountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/absentCountTextView"
+                android:layout_marginTop="8dp"
+                android:text="Total: 0"
+                android:textSize="18sp"
+
+                android:textStyle="bold|italic"
+                android:fontFamily="sans-serif"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/percentageTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/totalCountTextView"
+                android:layout_marginTop="8dp"
+                android:text="Percentage: 0%"
+                android:textSize="18sp"
+                android:textColor="#0000FF"
+                android:textStyle="normal"
+                android:fontFamily="sans-serif-light"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"/>
+
+
+            <!-- Three-dot Spinner (ProgressBar) -->
+            <ProgressBar
+                android:id="@+id/threeDotSpinner"
+                style="@android:style/Widget.Holo.ProgressBar.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="8dp"/>
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

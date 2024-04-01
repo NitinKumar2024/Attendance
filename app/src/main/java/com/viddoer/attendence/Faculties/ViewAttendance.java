@@ -1,28 +1,17 @@
 package com.viddoer.attendence.Faculties;
 
-import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
-import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.viddoer.attendence.R;
-import com.viddoer.attendence.Students.BottomSheetFragment;
-
-import java.util.ArrayList;
 
 
 public class ViewAttendance extends Fragment {
@@ -63,9 +52,10 @@ public class ViewAttendance extends Fragment {
                         String selectedDate = year + "-" + (month + 1) + "-" + dayOfMonth;
 
                         Intent intent = new Intent(getActivity(), AllAttendanceViewDownload.class);
-                        String subject = branch + subject_code;
+                        String full_subject = branch + subject_code;
                         intent.putExtra("date", selectedDate);
-                        intent.putExtra("subject", subject);
+                        intent.putExtra("subject", full_subject);
+                        intent.putExtra("subject_name", subject);
                         startActivity(intent);
 
                     }

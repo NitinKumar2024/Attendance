@@ -1,13 +1,14 @@
 package com.viddoer.attendence.Models;
 
 public class StudentSubjectModel {
-    String subject_code, branch_code, roll_no, subject;
+    String subject_code, branch_code, roll_no, subject, role;
 
-    public StudentSubjectModel(String subject_code, String branch_code, String roll_no, String subject) {
+    public StudentSubjectModel(String subject_code, String branch_code, String roll_no, String subject, String role) {
         this.subject_code = subject_code;
         this.branch_code = branch_code;
         this.roll_no = roll_no;
         this.subject = subject;
+        this.role = role;
     }
 
     public String getSubject_code() {
@@ -40,5 +41,13 @@ public class StudentSubjectModel {
 
     public void setSubject(String subject) {
         this.subject = subject;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

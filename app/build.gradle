@@ -53,7 +53,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.7.7'
     implementation 'androidx.navigation:navigation-ui:2.7.7'
     implementation 'com.google.firebase:firebase-auth:22.3.1'
-    implementation 'com.google.firebase:firebase-database:20.3.0'
+    implementation 'com.google.firebase:firebase-database:20.3.1'
     implementation files('libs/mysql-connector-j-8.2.0.jar')
     implementation 'com.google.firebase:firebase-storage:20.3.0'
 
@@ -70,6 +70,12 @@ dependencies {
 
     implementation 'com.loopj.android:android-async-http:1.4.11'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+
+
+
+
 
 
     // Apache POI

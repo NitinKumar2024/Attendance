@@ -1,22 +1,19 @@
 package com.viddoer.attendence.Authentication;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -30,26 +27,18 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.viddoer.attendence.ApiUrls;
 import com.viddoer.attendence.MainActivity;
-import com.viddoer.attendence.Principle.FacultyAdapter;
-import com.viddoer.attendence.Principle.FacultyItem;
 import com.viddoer.attendence.Principle.PrincipleDashboard;
 import com.viddoer.attendence.R;
-import com.viddoer.attendence.StudentDashBoard;
-import com.viddoer.attendence.WhoAreYou;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -59,7 +48,7 @@ public class TeacherLogin extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private FirebaseAuth auth;
     ProgressDialog progressDialog;
-    private static final String PHP_SCRIPT_URL = "https://viddoer.com/attendance/gpbarh/faculty_login.php";
+    private static final String PHP_SCRIPT_URL = ApiUrls.TeacherLogin_PHP_SCRIPT_URL;
 
 
     @SuppressLint("MissingInflatedId")

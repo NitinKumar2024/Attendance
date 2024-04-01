@@ -1,18 +1,16 @@
 package com.viddoer.attendence.Principle;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,9 +25,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.viddoer.attendence.MainActivity;
+import com.viddoer.attendence.ApiUrls;
 import com.viddoer.attendence.R;
-import com.viddoer.attendence.Students.Student;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,7 +48,7 @@ public class TeacherDetails extends AppCompatActivity {
     private static final String UPPERCASE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String DIGITS = "0123456789";
     private static final String SPECIAL_CHARS = "!@#$%^&*()-_=+";
-    String url = "https://viddoer.com/attendance/gpbarh/faculty_table_with_email.php";
+    String url = ApiUrls.TeacherDetails_url;
     // Define a method to generate a random password
     public static String generateRandomPassword(int length) {
         StringBuilder password = new StringBuilder();

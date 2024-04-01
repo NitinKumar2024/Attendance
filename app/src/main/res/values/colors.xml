@@ -15,5 +15,7 @@
     <color name="secondary_variant_color">#F50057</color> <!-- Darker pink -->
     <color name="on_secondary_color">#000000</color> <!-- Black -->
     <color name="divider_color">#C4C4C4</color>
+    <color name="presentColor">#00FF00</color> <!-- Green color for present -->
+    <color name="absentColor">#FF0000</color>  <!-- Red color for absent -->
 
 </resources>

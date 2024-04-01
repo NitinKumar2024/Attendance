@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.viddoer.attendence.ApiUrls;
 import com.viddoer.attendence.R;
 import com.viddoer.attendence.Students.StudentSubjectDisplay;
 
@@ -35,8 +36,8 @@ public class ForgotPassword extends AppCompatActivity {
 
     private TextInputEditText email;
     ProgressDialog progressDialog;
-    private static final String PHP_SCRIPT_URL = "https://viddoer.com/attendance/gpbarh/View&Delete/student_forgot_password.php";
-    private static final String PHP_SCRIPT_URL2 = "https://viddoer.com/attendance/gpbarh/View&Delete/faculty_forgot_password.php";
+    private static final String PHP_SCRIPT_URL = ApiUrls.ForgotPassword_PHP_SCRIPT_URL;
+    private static final String PHP_SCRIPT_URL2 =ApiUrls.ForgotPassword_PHP_SCRIPT_URL2;
 
     @SuppressLint("MissingInflatedId")
     @Override
