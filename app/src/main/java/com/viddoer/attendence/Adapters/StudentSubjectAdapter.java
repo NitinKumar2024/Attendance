@@ -15,6 +15,7 @@ import com.viddoer.attendence.Models.StudentSubjectModel;
 import com.viddoer.attendence.R;
 import com.viddoer.attendence.Students.StudentFrontDashboard.AllStudentRankDisplayActivity;
 import com.viddoer.attendence.Students.StudentSubjectDisplay;
+import com.viddoer.attendence.Students.class_test.ClassTestNumberDisplay;
 
 import java.util.List;
 
@@ -56,8 +57,15 @@ public class StudentSubjectAdapter extends RecyclerView.Adapter<StudentSubjectAd
                     v.getContext().startActivity(intent);
 
 
-                }
-                else {
+                } else if (role.equals("class_test")) {
+                    Intent intent = new Intent(v.getContext(), ClassTestNumberDisplay.class);
+                    intent.putExtra("subject", subjectModel.getSubject());
+                    intent.putExtra("subject_code", subjectModel.getSubject_code());
+                    intent.putExtra("branch_code", subjectModel.getBranch_code());
+                    intent.putExtra("registration", subjectModel.getRegistration());
+                    v.getContext().startActivity(intent);
+
+                } else {
 
                     Intent intent = new Intent(v.getContext(), StudentSubjectDisplay.class);
                     intent.putExtra("subject", subjectModel.getSubject());

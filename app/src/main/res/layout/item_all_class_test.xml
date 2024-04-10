@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- List of Students with Checkboxes -->
+    <LinearLayout
+        android:id="@+id/checkboxContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp">
+
+        <!-- Student 1 -->
+        <TextView
+            android:id="@+id/checkboxStudent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/purple_200"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:text="Nitin Kumar"/>
+
+        <!-- TextInputLayout with EditText, CheckBox, and ImageView -->
+        <LinearLayout
+            android:id="@+id/checkBoxContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
+
+            <!-- EditText -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_number_EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter Your Number"
+                    android:inputType="numberDecimal|textNoSuggestions"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Absent CheckBox -->
+            <CheckBox
+                android:id="@+id/checkBoxAbsent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Absent"
+                android:visibility="gone"
+                android:layout_marginStart="16dp" />
+
+            <!-- Rename Icon -->
+            <ImageView
+                android:id="@+id/icon_rename"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/background_rounded"
+                android:src="@drawable/ic_menu"
+                android:layout_marginStart="16dp" />
+
+        </LinearLayout>
+
+        <!-- Mark Attendance Button -->
+        <Button
+            android:id="@+id/buttonMarkAttendance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rounded_corner"
+            style="@style/Widget.App.Button.Primary"
+            android:layout_marginBottom="16dp"
+            android:layout_alignParentBottom="true" />
+
+    </LinearLayout>
+
+</RelativeLayout>

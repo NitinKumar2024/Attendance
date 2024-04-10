@@ -186,7 +186,7 @@ public class StudentDashboardFragment extends Fragment {
                 String branch = studentObject.getString("Branch");
                 String branch_code = studentObject.getString("Branch_Code");
                 String semester = studentObject.getString("semester");
-                subjectList.add(new StudentSubjectModel(subject_code, branch_code, roll, subject, "report"));
+                subjectList.add(new StudentSubjectModel(subject_code, branch_code, roll, subject, "report", registration));
 
             }
 

@@ -1,16 +1,15 @@
 package com.viddoer.attendence.Students.StudentFrontDashboard;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,7 +17,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.viddoer.attendence.Adapters.StudentSubjectAdapter;
 import com.viddoer.attendence.ApiUrls;
 import com.viddoer.attendence.Models.StudentSubjectModel;
@@ -50,8 +48,7 @@ public class StudentChooseSubjectActivity extends AppCompatActivity {
 
         this.getSupportActionBar().hide();
 
-        // Lock the screen orientation to portrait
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
 
         name = getIntent().getStringExtra("name");
         email = getIntent().getStringExtra("email");
@@ -82,15 +79,6 @@ public class StudentChooseSubjectActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         fetch_all_subject(branch, semester);
-
-        FloatingActionButton floatingActionButton = findViewById(R.id.refresh);
-        floatingActionButton.setVisibility(View.GONE);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fetch_all_subject(branch, semester);
-            }
-        });
 
 
 
@@ -188,7 +176,7 @@ public class StudentChooseSubjectActivity extends AppCompatActivity {
                 String branch = studentObject.getString("Branch");
                 String branch_code = studentObject.getString("Branch_Code");
                 String semester = studentObject.getString("semester");
-                subjectList.add(new StudentSubjectModel(subject_code, branch_code, roll, subject, role));
+                subjectList.add(new StudentSubjectModel(subject_code, branch_code, roll, subject, role, registration));
 
             }
 

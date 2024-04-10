@@ -1,15 +1,13 @@
 package com.viddoer.attendence;
 
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.annotation.SuppressLint;
-import android.content.pm.ActivityInfo;
-import android.os.Bundle;
-
 import com.google.android.material.tabs.TabLayout;
 import com.viddoer.attendence.Adapters.StudentFragmentAdapter;
-import com.viddoer.attendence.Adapters.TabAttendanceAdapter;
 
 public class StudentDashBoard extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
@@ -19,8 +17,6 @@ public class StudentDashBoard extends AppCompatActivity {
         setContentView(R.layout.activity_student_dash_board);
         this.getSupportActionBar().hide();
 
-        // Lock the screen orientation to portrait
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         String name = getIntent().getStringExtra("name");
         String email = getIntent().getStringExtra("email");

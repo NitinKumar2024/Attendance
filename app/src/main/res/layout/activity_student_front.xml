@@ -52,6 +52,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/textView1"
                         android:text="Attendace Report"
                         android:layout_marginTop="10dp"
                         android:textColor="@color/black"
@@ -101,7 +102,7 @@
                 android:layout_width="130dp"
                 android:layout_height="150dp"
                 app:cardCornerRadius="15dp"
-                android:id="@+id/cardView3"
+                android:id="@+id/class_test"
                 app:cardBackgroundColor="@color/white"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
@@ -123,7 +124,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Connect With Us"
+                        android:id="@+id/textView3"
+                        android:text="Class Test"
                         android:textColor="@color/black"
                         android:layout_marginTop="10dp"
                         android:layout_gravity="center_horizontal"

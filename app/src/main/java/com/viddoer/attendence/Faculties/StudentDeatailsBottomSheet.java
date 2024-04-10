@@ -28,6 +28,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.viddoer.attendence.ApiUrls;
 import com.viddoer.attendence.R;
 import com.viddoer.attendence.Students.StudentSubjectDisplay;
+import com.viddoer.attendence.Students.class_test.ClassTestNumberDisplay;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,13 +39,13 @@ import java.util.Map;
 
 public class StudentDeatailsBottomSheet extends BottomSheetDialogFragment {
 
-    String number, email, complete_subject, name, roll, subject_name;
+    String number, email, complete_subject, name, roll, subject_name, subject_code , registration;
     ProgressDialog progressDialog;
     private static final String PHP_SCRIPT_URL = ApiUrls.StudentDeatailsBottomSheet_PHP_SCRIPT_URL;
 
-    TextView user_name, Attendance_report_textView, call_textView, email_textView;
+    TextView user_name, Attendance_report_textView, call_textView, email_textView, class_test;
 
-    public void setStudentList(String number, String email, String complete_subject, String name, String roll, String subject_name) {
+    public void setStudentList(String number, String email, String complete_subject, String name, String roll, String subject_name, String subject_code, String registration) {
 
         this.number = number;
         this.email = email;
@@ -52,6 +53,8 @@ public class StudentDeatailsBottomSheet extends BottomSheetDialogFragment {
         this.name = name;
         this.roll = roll;
         this.subject_name = subject_name;
+        this.subject_code = subject_code;
+        this.registration = registration;
         // Handle the received list in your BottomSheetFragment
         // You can use this list to update your UI or perform any other actions
     }
@@ -66,6 +69,8 @@ public class StudentDeatailsBottomSheet extends BottomSheetDialogFragment {
         Attendance_report_textView = view.findViewById(R.id.report);
         call_textView = view.findViewById(R.id.text_call);
         email_textView = view.findViewById(R.id.text_email);
+        class_test = view.findViewById(R.id.text_class_test);
+
 
         progressDialog = new ProgressDialog(getContext());
 
@@ -84,18 +89,22 @@ public class StudentDeatailsBottomSheet extends BottomSheetDialogFragment {
 
         });
 
-        email_textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                send_mail_for_low_attendance(email, name, subject_name);
-            }
-        });
+        email_textView.setOnClickListener(v -> send_mail_for_low_attendance(email, name, subject_name));
         Attendance_report_textView.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), StudentSubjectDisplay.class);
             intent.putExtra("complete_subject", complete_subject);
             intent.putExtra("roll", roll);
             intent.putExtra("subject", subject_name);
             startActivity(intent);
+        });
+
+        class_test.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), ClassTestNumberDisplay.class);
+            intent.putExtra("subject", subject_name);
+            intent.putExtra("subject_code", subject_code);
+
+            intent.putExtra("registration", registration);
+            v.getContext().startActivity(intent);
         });
 
 

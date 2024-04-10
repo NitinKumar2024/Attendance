@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +23,7 @@ public class StudentFrontActivity extends AppCompatActivity {
 
     CardView cardView1, cardView2, cardView3, cardView4;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +33,7 @@ public class StudentFrontActivity extends AppCompatActivity {
 
         cardView1 = findViewById(R.id.cardView1);
         cardView2 = findViewById(R.id.cardView2);
-        cardView3 = findViewById(R.id.cardView3);
+        cardView3 = findViewById(R.id.class_test);
         cardView4 = findViewById(R.id.cardView4);
 
         // Lock the screen orientation to portrait
@@ -45,41 +47,40 @@ public class StudentFrontActivity extends AppCompatActivity {
         password = getIntent().getStringExtra("password");
 
 
-        cardView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(StudentFrontActivity.this, StudentDashBoard.class);
-                intent.putExtra("name", name);
-                intent.putExtra("email", email);
-                intent.putExtra("semester", semester);
-                intent.putExtra("registration", registration);
-                intent.putExtra("phone", phone);
-                intent.putExtra("password", password);
-                startActivity(intent);
-            }
+        cardView1.setOnClickListener(v -> {
+            Intent intent = new Intent(StudentFrontActivity.this, StudentDashBoard.class);
+            intent.putExtra("name", name);
+            intent.putExtra("email", email);
+            intent.putExtra("semester", semester);
+            intent.putExtra("registration", registration);
+            intent.putExtra("phone", phone);
+            intent.putExtra("password", password);
+            startActivity(intent);
         });
 
-        cardView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(StudentFrontActivity.this, StudentChooseSubjectActivity.class);
-                intent.putExtra("name", name);
-                intent.putExtra("email", email);
-                intent.putExtra("semester", semester);
-                intent.putExtra("registration", registration);
-                intent.putExtra("phone", phone);
-                intent.putExtra("password", password);
-                intent.putExtra("role", "rank");
-                startActivity(intent);
-            }
+        cardView2.setOnClickListener(v -> {
+            Intent intent = new Intent(StudentFrontActivity.this, StudentChooseSubjectActivity.class);
+            intent.putExtra("name", name);
+            intent.putExtra("email", email);
+            intent.putExtra("semester", semester);
+            intent.putExtra("registration", registration);
+            intent.putExtra("phone", phone);
+            intent.putExtra("password", password);
+            intent.putExtra("role", "rank");
+            startActivity(intent);
         });
-        cardView4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAlert();
+        cardView4.setOnClickListener(v -> showAlert());
 
-
-            }
+        cardView3.setOnClickListener(v -> {
+            Intent intent = new Intent(StudentFrontActivity.this, StudentChooseSubjectActivity.class);
+            intent.putExtra("name", name);
+            intent.putExtra("email", email);
+            intent.putExtra("semester", semester);
+            intent.putExtra("registration", registration);
+            intent.putExtra("phone", phone);
+            intent.putExtra("password", password);
+            intent.putExtra("role", "class_test");
+            startActivity(intent);
         });
     }
 

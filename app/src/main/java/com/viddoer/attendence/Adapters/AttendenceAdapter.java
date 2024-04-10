@@ -2,13 +2,11 @@ package com.viddoer.attendence.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,17 +19,15 @@ import com.viddoer.attendence.Faculties.StudentDeatailsBottomSheet;
 import com.viddoer.attendence.Models.AttendenceModel;
 import com.viddoer.attendence.R;
 import com.viddoer.attendence.Students.BottomSheetFragment;
-import com.viddoer.attendence.Students.Student;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class AttendenceAdapter extends RecyclerView.Adapter<AttendenceAdapter.AttendenceViewHolder> {
 
     List<AttendenceModel> attendanceModels;
     List<String> all_student = new ArrayList<>();
+
 
     Context context;
 
@@ -55,13 +51,15 @@ public class AttendenceAdapter extends RecyclerView.Adapter<AttendenceAdapter.At
         String email = attendanceModels.get(position).getEmail();
         String subject = attendanceModels.get(position).getSubject();
         String subject_name = attendanceModels.get(position).getSubject_name();
+        String subject_code = attendanceModels.get(position).getClass_test_number();
+        String registration = attendanceModels.get(position).getRegistration();
         holder.name.setText(names + " " + "(" + roll + ")");
 
         holder.sheet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 StudentDeatailsBottomSheet bottomSheetFragment = new StudentDeatailsBottomSheet();
-                bottomSheetFragment.setStudentList(attendanceModels.get(position).getNumber(), email, subject, names, roll, subject_name);
+                bottomSheetFragment.setStudentList(attendanceModels.get(position).getNumber(), email, subject, names, roll, subject_name, subject_code, registration);
                 bottomSheetFragment.show(((AppCompatActivity) v.getContext()).getSupportFragmentManager(), bottomSheetFragment.getTag());
 
             }

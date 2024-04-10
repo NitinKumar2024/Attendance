@@ -52,7 +52,43 @@
 
         android:drawablePadding="20dp"
         android:paddingStart="20dp"
-        android:text="Excel"
+        android:text="EXCEL"
+        android:textAlignment="center" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn2"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="32dp"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        style="@android:style/Widget.Button"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/btn_background_1"
+
+        android:drawablePadding="20dp"
+        android:paddingStart="20dp"
+        android:text="Class Test 3"
+        android:textAlignment="center" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn3"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="32dp"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        style="@android:style/Widget.Button"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/btn_background_1"
+
+        android:drawablePadding="20dp"
+        android:paddingStart="20dp"
+        android:visibility="gone"
+        android:text="Class Test 4"
         android:textAlignment="center" />
 
 </LinearLayout>

@@ -3,12 +3,14 @@ package com.viddoer.attendence.Models;
 public class AttendenceModel {
 
     String name;
+    private String inputValue;
+
     String roll_no;
     String subject;
     String branch;
-    String email, number, semester, subject_name;
+    String email, number, semester, subject_name, class_test_number, registration;
 
-    public AttendenceModel(String name, String roll_no, String subject, String branch, String email, String number, String semester, String subject_name) {
+    public AttendenceModel(String name, String roll_no, String subject, String branch, String email, String number, String semester, String subject_name, String class_test_number, String registration) {
         this.name = name;
         this.roll_no = roll_no;
         this.subject = subject;
@@ -17,6 +19,16 @@ public class AttendenceModel {
         this.number = number;
         this.semester = semester;
         this.subject_name = subject_name;
+        this.class_test_number = class_test_number;
+        this.registration = registration;
+    }
+
+    public String getInputValue() {
+        return inputValue;
+    }
+
+    public void setInputValue(String inputValue) {
+        this.inputValue = inputValue;
     }
 
     public String getName() {
@@ -77,6 +89,23 @@ public class AttendenceModel {
 
     public String getSubject_name() {
         return subject_name;
+    }
+
+    public String getClass_test_number() {
+        return class_test_number;
+    }
+
+
+    public String getRegistration() {
+        return registration;
+    }
+
+    public void setRegistration(String registration) {
+        this.registration = registration;
+    }
+
+    public void setClass_test_number(String class_test_number) {
+        this.class_test_number = class_test_number;
     }
 
     public void setSubject_name(String subject_name) {

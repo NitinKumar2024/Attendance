@@ -2,7 +2,6 @@ package com.viddoer.attendence;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -27,8 +26,7 @@ public class AllStudentDisplay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_student_display);
-        // Lock the screen orientation to portrait
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Loading...");
         this.getSupportActionBar().hide();

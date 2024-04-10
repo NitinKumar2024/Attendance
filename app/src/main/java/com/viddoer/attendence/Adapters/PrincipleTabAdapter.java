@@ -9,13 +9,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.viddoer.attendence.Faculties.DownlaodAttendance;
-import com.viddoer.attendence.Faculties.RemarkAttendence;
-import com.viddoer.attendence.Faculties.ViewAttendance;
 import com.viddoer.attendence.Principle.PrincipleAddFaculty;
 import com.viddoer.attendence.Principle.PrincipleAddStudent;
 import com.viddoer.attendence.Principle.PrincipleUploadSubject;
-import com.viddoer.attendence.databinding.FragmentPrincipleAddStudentBinding;
 
 public class PrincipleTabAdapter extends FragmentPagerAdapter {
 

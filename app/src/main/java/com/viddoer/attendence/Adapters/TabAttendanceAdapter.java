@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.viddoer.attendence.Faculties.DownlaodAttendance;
+import com.viddoer.attendence.Faculties.FacultySubjectWiseDashboard;
 import com.viddoer.attendence.Faculties.RemarkAttendence;
 import com.viddoer.attendence.Faculties.ViewAttendance;
 
@@ -40,8 +40,8 @@ public class TabAttendanceAdapter extends FragmentPagerAdapter {
                 remarkFragment.setData(branch, semester, subject,subject_code);
                 return remarkFragment;
             case 2:
-                DownlaodAttendance downloadFragment = new DownlaodAttendance();
-                downloadFragment.setData(branch, semester, subject);
+                FacultySubjectWiseDashboard downloadFragment = new FacultySubjectWiseDashboard();
+                downloadFragment.setData(branch, semester, subject,subject_code);
                 return downloadFragment;
             default:
                 // If position does not match any case, return the middle fragment
@@ -61,7 +61,7 @@ public class TabAttendanceAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     @Nullable
@@ -75,7 +75,7 @@ public class TabAttendanceAdapter extends FragmentPagerAdapter {
             title = "View Attendance";
         }
         if (position==2){
-            title = "Download Data";
+            title = "Dashboard";
         }
 
         return title;

@@ -336,12 +336,12 @@ public class AllAttendanceViewDownload extends AppCompatActivity {
                 workbook.write(fileOut);
                 progressBar.setVisibility(View.GONE);
 
-                    // Open the PDF with an intent
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    Uri uri = FileProvider.getUriForFile(AllAttendanceViewDownload.this, getPackageName() + ".fileprovider", pdfFile);
-                    intent.setDataAndType(uri, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    startActivity(intent);
+                // Open the PDF with an intent
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                Uri uri = FileProvider.getUriForFile(AllAttendanceViewDownload.this, getPackageName() + ".fileprovider", pdfFile);
+                intent.setDataAndType(uri, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(intent);
 //
                 Toast.makeText(this, "Successfully Created", Toast.LENGTH_SHORT).show();
             }
@@ -361,7 +361,7 @@ public class AllAttendanceViewDownload extends AppCompatActivity {
 
         // Inflate the custom layout for the dialog
         LayoutInflater inflater = LayoutInflater.from(this);
-        View view = inflater.inflate(R.layout.dialog_export_options, null);
+        View view = inflater.inflate(R.layout.item_dialog_export_options, null);
 
         // Set the custom view to the dialog
         builder.setView(view);

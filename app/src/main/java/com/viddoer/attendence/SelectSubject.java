@@ -3,7 +3,6 @@ package com.viddoer.attendence;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -46,8 +45,7 @@ public class SelectSubject extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_subject);
         progressBar = findViewById(R.id.threeDotSpinner);
-        // Lock the screen orientation to portrait
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
 
         branch = getIntent().getStringExtra("branch");
         semester = getIntent().getStringExtra("semester");

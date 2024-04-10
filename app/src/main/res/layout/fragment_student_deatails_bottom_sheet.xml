@@ -7,6 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:padding="16dp">
 
     <!-- Title TextView -->
@@ -34,6 +35,7 @@
             android:layout_height="wrap_content"
             android:text="Attendance Report"
             android:textSize="18sp"
+            android:textStyle="bold"
 
             android:drawablePadding="8dp"
             android:padding="8dp"
@@ -55,6 +57,7 @@
             android:layout_height="wrap_content"
             android:text="Call"
             android:textSize="18sp"
+            android:textStyle="bold"
 
             android:drawablePadding="8dp"
             android:padding="8dp"
@@ -76,6 +79,26 @@
             android:textSize="18sp"
 
             android:drawablePadding="8dp"
+            android:textStyle="bold"
+            android:padding="8dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider_color"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/text_class_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Class Test"
+            android:textSize="18sp"
+
+            android:drawablePadding="8dp"
+            android:textStyle="bold"
             android:padding="8dp"
             android:gravity="center_vertical"
             android:textColor="@color/black"/>

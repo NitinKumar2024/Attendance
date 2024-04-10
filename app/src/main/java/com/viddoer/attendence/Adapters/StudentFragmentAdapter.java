@@ -9,9 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.viddoer.attendence.Faculties.DownlaodAttendance;
-import com.viddoer.attendence.Faculties.RemarkAttendence;
-import com.viddoer.attendence.Faculties.ViewAttendance;
 import com.viddoer.attendence.Students.StudentDashboardFragment;
 import com.viddoer.attendence.Students.StudentProfileFragment;
 import com.viddoer.attendence.Students.StudentSyllabusFragment;

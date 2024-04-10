@@ -31,6 +31,9 @@ public class ApiUrls {
     public static final String AllAttendanceViewDownload_HP_SCRIPT_URL_Range = "https://viddoer.com/attendance/gpbarh/view_download_range.php";
     public static final String AllStudentRandDisplayActivity_url = "https://viddoer.com/attendance/gpbarh/View&Delete/AllStudentRank.php";
     public static final String AllAttendanceViewDownload_pdf_url = "https://viddoer.com/attendance/gpbarh/View&Delete/export_pdf.php";
+    public static final String ClassTestBottomSheet_url = "https://viddoer.com/attendance/gpbarh/View&Delete/class_test_accept.php";
+    public static final String ClassTestNumberDisplay_url = "https://viddoer.com/attendance/gpbarh/View&Delete/class_test_number_display.php";
+    public static final String ClassTestViewDownload_url = "https://viddoer.com/attendance/gpbarh/View&Delete/view_class_test.php";
 
 
 }
