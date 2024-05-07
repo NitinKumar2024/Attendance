@@ -145,7 +145,11 @@ public class PrincipleAddStudent extends Fragment {
             if (data != null) {
                 Uri excelFileUri = data.getData();
                 if (excelFileUri != null) {
-                    uploadFileToFirebase(excelFileUri);
+                    // You can use the fileUri to access the selected file
+                    String filePath = excelFileUri.getPath();
+                    File file = new File(filePath);
+                    readExcelFile(file);
+//                    uploadFileToFirebase(excelFileUri);
                 }
             }
         }

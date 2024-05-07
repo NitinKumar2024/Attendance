@@ -34,6 +34,7 @@ public class ApiUrls {
     public static final String ClassTestBottomSheet_url = "https://viddoer.com/attendance/gpbarh/View&Delete/class_test_accept.php";
     public static final String ClassTestNumberDisplay_url = "https://viddoer.com/attendance/gpbarh/View&Delete/class_test_number_display.php";
     public static final String ClassTestViewDownload_url = "https://viddoer.com/attendance/gpbarh/View&Delete/view_class_test.php";
+    public static final String HomeFragment_url = "https://viddoer.com/attendance/gpbarh/branch_handle.php";
 
 
 }

@@ -24,7 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DatabaseReference;
+
 import com.google.firebase.database.FirebaseDatabase;
 import com.viddoer.attendence.ApiUrls;
 import com.viddoer.attendence.R;
@@ -40,7 +40,7 @@ import java.util.Map;
 
 public class PrincipleAddFaculty extends Fragment {
 
-    private DatabaseReference databaseReference;
+
     ProgressBar progressBar;
     String url = ApiUrls.PrincipleAddFaculty_url;
     List<FacultyItem> facultyList = new ArrayList<>();
@@ -55,12 +55,12 @@ public class PrincipleAddFaculty extends Fragment {
 
 
         // Rest of your fragment code...
-
         // Initialize Firebase
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         progressBar = view.findViewById(R.id.threeDotSpinner);
         // Replace "your-database-url" with your Firebase Realtime Database URL
-        databaseReference = firebaseDatabase.getReference();
+
+
         recyclerView = view.findViewById(R.id.recyclerView);
         FloatingActionButton refresh = view.findViewById(R.id.refresh);
         refresh.setOnClickListener(new View.OnClickListener() {
@@ -182,7 +182,7 @@ public class PrincipleAddFaculty extends Fragment {
                 String email = studentObject.getString("email"); // Adjust key according to PHP response
                 String number = studentObject.getString("number"); // Adjust key according to PHP response
                 String password = studentObject.getString("password"); // Adjust key according to PHP response
-                facultyList.add(new FacultyItem(name, "GP BARH", number, email, password));
+                facultyList.add(new FacultyItem(name, email, number));
             }
         } catch (JSONException e) {
             e.printStackTrace();

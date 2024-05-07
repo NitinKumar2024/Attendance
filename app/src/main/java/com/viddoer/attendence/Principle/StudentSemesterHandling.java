@@ -1,25 +1,28 @@
 package com.viddoer.attendence.Principle;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -34,10 +37,8 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.viddoer.attendence.Adapters.StudentAddAdapter;
 import com.viddoer.attendence.ApiUrls;
-import com.viddoer.attendence.MainActivity;
 import com.viddoer.attendence.Models.StudentAddModel;
 import com.viddoer.attendence.R;
-import com.viddoer.attendence.Students.Student;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -118,8 +119,7 @@ public class StudentSemesterHandling extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_semester_handling);
-        // Lock the screen orientation to portrait
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         this.getSupportActionBar().hide();
 
         branch_code = getIntent().getStringExtra("branch");
@@ -424,7 +424,7 @@ public class StudentSemesterHandling extends AppCompatActivity {
                         // You can parse response here if server sends any
                         Toast.makeText(StudentSemesterHandling.this, response, Toast.LENGTH_SHORT).show();
 
-                        if (response.contains("Success")) {
+                        if (response.contains("Email sent successfully")) {
                             Toast.makeText(StudentSemesterHandling.this, "Student Added Successfully", Toast.LENGTH_SHORT).show();
                             finish();
 
@@ -437,7 +437,7 @@ public class StudentSemesterHandling extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // Handle error
-                        System.out.println(error.toString());
+
                         finish();
                         Toast.makeText(StudentSemesterHandling.this, error.toString(), Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE); // Dismiss the progress dialog if there's an error
@@ -457,8 +457,8 @@ public class StudentSemesterHandling extends AppCompatActivity {
     }
 
     private void openFilePicker() {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+
         intent.setType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"); // Specify the MIME type for Excel files
 
         startActivityForResult(intent, PICK_EXCEL_FILE);
@@ -477,10 +477,43 @@ public class StudentSemesterHandling extends AppCompatActivity {
                 Uri excelFileUri = data.getData();
                 if (excelFileUri != null) {
                     uploadFileToFirebase(excelFileUri);
+                    }
+                } else {
+                    // Handle case where URI is null
+                    Toast.makeText(this, "Failed to get URI", Toast.LENGTH_SHORT).show();
                 }
+            } else {
+                // Handle case where data intent is null
+                Toast.makeText(this, "Intent data is null", Toast.LENGTH_SHORT).show();
             }
         }
+
+
+
+    private String getPathFromUri(Context context, Uri uri) {
+        String filePath = null;
+        if (context != null && uri != null) {
+            if ("content".equalsIgnoreCase(uri.getScheme())) {
+                String[] projection = { MediaStore.Images.Media.DATA };
+                Cursor cursor = null;
+                try {
+                    cursor = context.getContentResolver().query(uri, projection, null, null, null);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                        filePath = cursor.getString(columnIndex);
+                    }
+                } finally {
+                    if (cursor != null) {
+                        cursor.close();
+                    }
+                }
+            } else if ("file".equalsIgnoreCase(uri.getScheme())) {
+                filePath = uri.getPath();
+            }
+        }
+        return filePath;
     }
+
 
     private void uploadFileToFirebase(Uri fileUri) {
         // Get the file name from the URI

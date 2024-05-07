@@ -16,49 +16,27 @@ public class FacultyProfile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_faculty_profile);
+        setContentView(R.layout.fragment_student_profile);
 
         TextView faculty_name = findViewById(R.id.textViewName);
-        TextView faculty_number = findViewById(R.id.textViewPhoneNumber);
-        TextView faculty_subject = findViewById(R.id.textViewSubject);
-        TextView faculty_password = findViewById(R.id.textViewPassword);
-        Button button = findViewById(R.id.buttonEditProfile);
+        TextView faculty_number = findViewById(R.id.text_phone);
+        TextView faculty_email = findViewById(R.id.email);
+        TextView reg = findViewById(R.id.textViewRegNumber);
+        reg.setVisibility(View.GONE);
+
 
         String name = getIntent().getStringExtra("name");
         String number = getIntent().getStringExtra("number");
-        String subject = getIntent().getStringExtra("subject");
-        String password = getIntent().getStringExtra("password");
-        String id = getIntent().getStringExtra("id");
+        String email = getIntent().getStringExtra("email");
+
+
 
         faculty_name.setText(name);
         faculty_number.setText("Phone: " + number);
-        faculty_subject.setText(subject);
-        faculty_password.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                faculty_password.setText(password);
-            }
-        });
+        faculty_email.setText("Email: " + email);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Get the id from the intent
-                String id = getIntent().getStringExtra("id");
 
-                String name = getIntent().getStringExtra("name");
-                String number = getIntent().getStringExtra("number");
-                String subject = getIntent().getStringExtra("subject");
-                String password = getIntent().getStringExtra("password");
 
-                showEditProfileBottomSheet(name, number, subject, password, id);
-            }
-        });
-    }
-
-    private void showEditProfileBottomSheet(String name, String number, String subject, String password, String id) {
-        EditProfileFragment bottomSheetFragment = EditProfileFragment.newInstance(name, number, subject, password, id);
-        bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
     }
 
 }

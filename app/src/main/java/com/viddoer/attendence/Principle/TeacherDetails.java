@@ -170,6 +170,9 @@ public class TeacherDetails extends AppCompatActivity {
 
                                     if (response.contains("Email sent successfully.")) {
                                         progressDialog.dismiss();
+                                        nameEditText.setText("");
+                                        emailEditText.setText("");
+                                        numberEditText.setText("");
 
                                         Toast.makeText(TeacherDetails.this, "Faculty Added Successfully.", Toast.LENGTH_SHORT).show();
 

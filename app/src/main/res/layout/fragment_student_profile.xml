@@ -86,6 +86,19 @@
 
                 android:layout_marginTop="16dp"
                 />
+
+            <!-- Mark Attendance Button -->
+            <Button
+                android:id="@+id/buttonLogOut"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Log Out"
+                android:textSize="26dp"
+                android:visibility="gone"
+
+                style="@style/Widget.App.Button.Primary"
+                android:background="@drawable/rounded_corner"
+                android:layout_marginTop="24dp"/>
         </LinearLayout>
     </RelativeLayout>
 

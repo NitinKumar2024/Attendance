@@ -27,11 +27,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.viddoer.attendence.ApiUrls;
 import com.viddoer.attendence.MainActivity;
 import com.viddoer.attendence.Principle.PrincipleDashboard;
+import com.viddoer.attendence.Principle.PrincipleFrontDashboard.PricipalFrontActivity;
 import com.viddoer.attendence.R;
 
 import org.json.JSONArray;
@@ -45,9 +44,10 @@ import java.util.Objects;
 public class TeacherLogin extends AppCompatActivity {
 
     private TextInputEditText passwordEditText, number;
-    private DatabaseReference databaseReference;
+
     private FirebaseAuth auth;
     ProgressDialog progressDialog;
+    String shared_name;
     private static final String PHP_SCRIPT_URL = ApiUrls.TeacherLogin_PHP_SCRIPT_URL;
 
 
@@ -71,12 +71,26 @@ public class TeacherLogin extends AppCompatActivity {
         TextView textView = findViewById(R.id.forgotlog);
 
 
-        // Initialize Firebase
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        // Replace "your-database-url" with your Firebase Realtime Database URL
-        databaseReference = firebaseDatabase.getReference();
+
         String value = getIntent().getStringExtra("role");
         if (value.equals("principle")){
+
+            shared_name = "principal_login";
+
+            SharedPreferences sharedPreferencest = getSharedPreferences(shared_name, Context.MODE_PRIVATE);
+            String Emails = sharedPreferencest.getString("email", null);
+            String Phones = sharedPreferencest.getString("number", null);
+            String names = sharedPreferencest.getString("username", null);
+
+            if (Emails!=null){
+                Intent intent = new Intent(TeacherLogin.this, PricipalFrontActivity.class);
+                intent.putExtra("username", names);
+                intent.putExtra("email", Emails);
+                intent.putExtra("number", Phones);
+                startActivity(intent);
+                finish();
+
+            }
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -85,28 +99,21 @@ public class TeacherLogin extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            if (currentUser != null) {
-                // User is already signed in, redirect to MainActivity
-                startActivity(new Intent(TeacherLogin.this, PrincipleDashboard.class));
-                finish();
-            }
+
         }
         else if (value.equals("faculty")){
-            SharedPreferences sharedPreferencest = getSharedPreferences("teacher_login", Context.MODE_PRIVATE);
+
+            shared_name = "teacher_login";
+            SharedPreferences sharedPreferencest = getSharedPreferences(shared_name, Context.MODE_PRIVATE);
             String Emails = sharedPreferencest.getString("email", null);
-            String passwords = sharedPreferencest.getString("password", null);
             String Phones = sharedPreferencest.getString("number", null);
             String names = sharedPreferencest.getString("username", null);
-            String subject = sharedPreferencest.getString("subject", null);
 
-            if (Emails!=null && passwords!=null){
+            if (Emails!=null){
                 Intent intent = new Intent(TeacherLogin.this, MainActivity.class);
                 intent.putExtra("username", names);
                 intent.putExtra("email", Emails);
-                intent.putExtra("subject", subject);
                 intent.putExtra("number", Phones);
-                intent.putExtra("password", passwords);
                 startActivity(intent);
                 finish();
 
@@ -140,10 +147,10 @@ public class TeacherLogin extends AppCompatActivity {
 
                     String value = getIntent().getStringExtra("role");
                     if (Objects.equals(value, "faculty")){
-                        php_login(numbers, passwords);
+                        php_login(numbers, passwords, "Faculty");
                     } else if (Objects.equals(value, "principle")) {
 
-                        login252(numbers, passwords);
+                        php_login(numbers, passwords, "principal");
 
                     }
                     else {
@@ -157,7 +164,7 @@ public class TeacherLogin extends AppCompatActivity {
         });
     }
 
-    private void php_login(String email, String password) {
+    private void php_login(String email, String password, String role) {
         progressDialog.show();
 
 
@@ -168,6 +175,7 @@ public class TeacherLogin extends AppCompatActivity {
         try {
             studentObject.put("email", email);
             studentObject.put("password", password);
+            studentObject.put("role", role);
 
 
             jsonArray.put(studentObject);
@@ -250,26 +258,25 @@ public class TeacherLogin extends AppCompatActivity {
                 String name = studentObject.getString("username");
                 String Email = studentObject.getString("email");
                 String Phone = studentObject.getString("number");
-                String password = studentObject.getString("password");
+                String college_code = studentObject.getString("college_code");
+                String unique_token = studentObject.getString("unique_token");
+
                 //  Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
 
                 if (name!=null){
                     Toast.makeText(this, "Login Successfully", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(TeacherLogin.this, MainActivity.class);
-                    intent.putExtra("username", name);
-                    intent.putExtra("email", Email);
-                    intent.putExtra("number", Phone);
-                    intent.putExtra("password", password);
 
-                    SharedPreferences sharedPreferences = getSharedPreferences("teacher_login", Context.MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = getSharedPreferences(shared_name, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("email", Email);
-                    editor.putString("password", password);
                     editor.putString("number", Phone);
                     editor.putString("name", name);
+                    editor.putString("college_code", college_code);
+                    editor.putString("unique_token", unique_token);
                     editor.apply();
 
-                    startActivity(intent);
+                    finish();
                 } else if (name == null) {
                     Toast.makeText(this, "Invalid username and password", Toast.LENGTH_SHORT).show();
 
@@ -286,7 +293,7 @@ public class TeacherLogin extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    private void login252(String email1, String password1)
+    private void php_principal_login(String email1, String password1)
     {
         progressDialog.show();
 
@@ -311,50 +318,5 @@ public class TeacherLogin extends AppCompatActivity {
 
 
     }
-//    private void retrieveData(String numbers, String passwords) {
-//        Intent intent = new Intent(TeacherLogin.this, MainActivity.class);
-//        startActivity(intent);
-//
-//        ProgressDialog progressDialog;
-//        progressDialog = new ProgressDialog(TeacherLogin.this);
-//        progressDialog.setIcon(R.drawable.barh_logo);
-//        progressDialog.setMessage("Logging...");
-//        progressDialog.show();
-////        databaseReference.child("faculties").addListenerForSingleValueEvent(new ValueEventListener() {
-////            @Override
-////            public void onDataChange(@android.support.annotation.NonNull DataSnapshot dataSnapshot) {
-////
-////
-////                for (DataSnapshot facultySnapshot : dataSnapshot.getChildren()) {
-////                    String number = facultySnapshot.child("number").getValue(String.class);
-////                    String password = facultySnapshot.child("password").getValue(String.class);
-////
-////                    if (Objects.equals(numbers, number) && Objects.equals(passwords, password)){
-////
-////                        Intent intent = new Intent(TeacherLogin.this, MainActivity.class);
-////                        startActivity(intent);
-////                        Toast.makeText(TeacherLogin.this, "Successfully Login", Toast.LENGTH_SHORT).show();
-////                        finish();
-////                        progressDialog.dismiss();
-////
-////                    }
-////
-////                progressDialog.dismiss();
-////
-////
-////                }
-////
-////
-////            }
-////
-////            @Override
-////            public void onCancelled(@NonNull DatabaseError databaseError) {
-////                // Handle error
-////
-////                progressDialog.dismiss();
-////                Toast.makeText(TeacherLogin.this, databaseError.toString(), Toast.LENGTH_SHORT).show();
-////            }
-////        });
-//    }
 
 }

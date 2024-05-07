@@ -74,10 +74,12 @@ public class ForgotPassword extends AppCompatActivity {
                                         if (task.isSuccessful()) {
                                             // Password reset email sent successfully
                                             progressDialog.dismiss();
+                                            email.setText("");
                                             Toast.makeText(ForgotPassword.this, "Password reset email sent", Toast.LENGTH_SHORT).show();
                                         } else {
                                             // Password reset email sending failed
                                             progressDialog.dismiss();
+                                            email.setText("");
                                             Toast.makeText(ForgotPassword.this, "Failed to send password reset email", Toast.LENGTH_SHORT).show();
                                         }
                                     }

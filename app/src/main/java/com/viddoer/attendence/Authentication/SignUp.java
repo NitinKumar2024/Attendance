@@ -28,9 +28,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
 import com.viddoer.attendence.ApiUrls;
 import com.viddoer.attendence.R;
 import com.viddoer.attendence.StudentDashBoard;
@@ -111,7 +109,7 @@ public class SignUp extends AppCompatActivity {
                                 else {
 
                                    // php_api(names, emails, passwords);
-                                    signUpUser(emails, passwords, names, numbers,selectedSubject, branchSubject );
+                                 //   signUpUser(emails, passwords, names, numbers,selectedSubject, branchSubject );
                                 }
                             }
                         });
@@ -212,88 +210,88 @@ public class SignUp extends AppCompatActivity {
     }
 
 
-    private void signUpUser(String emails, String passwords, String names, String numbers, String branch, String semester) {
-        ProgressDialog progressDialog;
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-// Create a HashMap to hold the new data
-        HashMap<String, Object> userData = new HashMap<>();
-        userData.put("number", "9341378627");
-
-// Define the reference to the same location
-        DatabaseReference registerDetailRef = database.getReference().child("Student Details").child(branch + "/" + semester +"/"+ names + " " + numbers);
-
-// Update the data at the reference location
-        registerDetailRef.updateChildren(userData, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                if (error == null) {
-                    // Handle success
-                    // You can perform any necessary actions here
-                    Intent intent = new Intent(SignUp.this, StudentDashBoard.class);
-                    startActivity(intent);
-                    progressDialog.dismiss();
-                } else {
-                    // Handle error
-                    progressDialog.dismiss();
-                    Toast.makeText(SignUp.this, "Failed to save user details", Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });
-
-        firebaseAuth.createUserWithEmailAndPassword(emails, passwords)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                            FirebaseUser currentUser = mAuth.getCurrentUser();
-
-                            if (currentUser != null) {
-                                String uid = currentUser.getUid();
-
-                                FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-                                HashMap<String, Object> userData = new HashMap<>();
-                                userData.put("User Name", names);
-                                userData.put("Branch Name", branch);
-                                userData.put("Semester", semester);
-                                userData.put("Roll_no", numbers);
-                                userData.put("Email", emails);
-                                userData.put("Password", passwords);
-
-                                DatabaseReference registerDetailRef = database.getReference().child("Student Details").child(branch + "/" + semester +"/"+ names + " " + numbers);
-
-                                registerDetailRef.setValue(userData, new DatabaseReference.CompletionListener() {
-                                    @Override
-                                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                        if (error == null) {
-                                            Intent intent = new Intent(SignUp.this, StudentDashBoard.class);
-                                            startActivity(intent);
-                                            progressDialog.dismiss();
-                                            finish();
-                                        } else {
-                                            progressDialog.dismiss();
-                                            Toast.makeText(SignUp.this, "Failed to save user details", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-
-                            } else {
-                                progressDialog.dismiss();
-                                Toast.makeText(SignUp.this, "Current user is null", Toast.LENGTH_SHORT).show();
-                            }
-
-                        } else {
-                            progressDialog.dismiss();
-                            Toast.makeText(SignUp.this, "Failed Registered: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
+//    private void signUpUser(String emails, String passwords, String names, String numbers, String branch, String semester) {
+//        ProgressDialog progressDialog;
+//        progressDialog = new ProgressDialog(this);
+//        progressDialog.setMessage("Loading...");
+//        progressDialog.show();
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//
+//// Create a HashMap to hold the new data
+//        HashMap<String, Object> userData = new HashMap<>();
+//        userData.put("number", "9341378627");
+//
+//// Define the reference to the same location
+//        DatabaseReference registerDetailRef = database.getReference().child("Student Details").child(branch + "/" + semester +"/"+ names + " " + numbers);
+//
+//// Update the data at the reference location
+//        registerDetailRef.updateChildren(userData, new DatabaseReference.CompletionListener() {
+//            @Override
+//            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+//                if (error == null) {
+//                    // Handle success
+//                    // You can perform any necessary actions here
+//                    Intent intent = new Intent(SignUp.this, StudentDashBoard.class);
+//                    startActivity(intent);
+//                    progressDialog.dismiss();
+//                } else {
+//                    // Handle error
+//                    progressDialog.dismiss();
+//                    Toast.makeText(SignUp.this, "Failed to save user details", Toast.LENGTH_SHORT).show();
+//
+//                }
+//            }
+//        });
+//
+//        firebaseAuth.createUserWithEmailAndPassword(emails, passwords)
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()) {
+//                            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+//                            FirebaseUser currentUser = mAuth.getCurrentUser();
+//
+//                            if (currentUser != null) {
+//                                String uid = currentUser.getUid();
+//
+//                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+//
+//                                HashMap<String, Object> userData = new HashMap<>();
+//                                userData.put("User Name", names);
+//                                userData.put("Branch Name", branch);
+//                                userData.put("Semester", semester);
+//                                userData.put("Roll_no", numbers);
+//                                userData.put("Email", emails);
+//                                userData.put("Password", passwords);
+//
+//                                DatabaseReference registerDetailRef = database.getReference().child("Student Details").child(branch + "/" + semester +"/"+ names + " " + numbers);
+//
+//                                registerDetailRef.setValue(userData, new DatabaseReference.CompletionListener() {
+//                                    @Override
+//                                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+//                                        if (error == null) {
+//                                            Intent intent = new Intent(SignUp.this, StudentDashBoard.class);
+//                                            startActivity(intent);
+//                                            progressDialog.dismiss();
+//                                            finish();
+//                                        } else {
+//                                            progressDialog.dismiss();
+//                                            Toast.makeText(SignUp.this, "Failed to save user details", Toast.LENGTH_SHORT).show();
+//                                        }
+//                                    }
+//                                });
+//
+//                            } else {
+//                                progressDialog.dismiss();
+//                                Toast.makeText(SignUp.this, "Current user is null", Toast.LENGTH_SHORT).show();
+//                            }
+//
+//                        } else {
+//                            progressDialog.dismiss();
+//                            Toast.makeText(SignUp.this, "Failed Registered: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+//    }
 
 }

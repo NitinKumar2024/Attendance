@@ -1,0 +1,34 @@
+<!-- item_branch.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/linearLayout"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Add ImageView and TextViews as in your existing branch layout -->
+    <!-- Add image for AI & ML branch -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:id="@+id/branch_image"
+        android:scaleType="centerCrop"
+        android:contentDescription="AI &amp; ML Image"/>
+
+    <!-- Add additional content for AI & ML branch -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="AI &amp; ML"
+        android:id="@+id/branch_name"
+        android:textColor="#ffffff"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/branch_description"
+        android:text="Explore the world of Artificial Intelligence and Machine Learning."
+        android:textColor="#ffffff"
+        android:layout_marginTop="8dp"/>
+</LinearLayout>

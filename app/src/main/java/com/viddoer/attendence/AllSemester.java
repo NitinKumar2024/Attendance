@@ -31,56 +31,31 @@ public class AllSemester extends AppCompatActivity {
         cardView3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AllSemester.this, SelectSubject.class);
-                intent.putExtra("branch", branch);
-                intent.putExtra("semester", "3");
-                startActivity(intent);
+               navigateToSubject("3", branch);
             }
         });
-        cardView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AllSemester.this, SelectSubject.class);
-                intent.putExtra("branch", branch);
-                intent.putExtra("semester", "1");
-                startActivity(intent);
-            }
+        cardView1.setOnClickListener(v -> {
+            navigateToSubject("1", branch);
         });
-        cardView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AllSemester.this, SelectSubject.class);
-                intent.putExtra("branch", branch);
-                intent.putExtra("semester", "2");
-                startActivity(intent);
-            }
+        cardView2.setOnClickListener(v -> {
+            navigateToSubject("2", branch);
         });
-        cardView4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AllSemester.this, SelectSubject.class);
-                intent.putExtra("branch", branch);
-                intent.putExtra("semester", "4");
-                startActivity(intent);
-            }
+        cardView4.setOnClickListener(v -> {
+            navigateToSubject("4", branch);
         });
-        cardView5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AllSemester.this, SelectSubject.class);
-                intent.putExtra("branch", branch);
-                intent.putExtra("semester", "5");
-                startActivity(intent);
-            }
+        cardView5.setOnClickListener(v -> {
+            navigateToSubject("5", branch);
         });
-        cardView6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AllSemester.this, SelectSubject.class);
-                intent.putExtra("branch", branch);
-                intent.putExtra("semester", "6");
-                startActivity(intent);
-            }
+        cardView6.setOnClickListener(v -> {
+            navigateToSubject("6", branch);
         });
     }
+
+    private void navigateToSubject(String semester, String branch) {
+        Intent intent = new Intent(this, SelectSubject.class);
+        intent.putExtra("branch", branch);
+        intent.putExtra("semester", semester);
+        startActivity(intent);
+    }
+
 }

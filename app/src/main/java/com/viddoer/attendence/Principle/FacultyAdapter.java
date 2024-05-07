@@ -21,8 +21,6 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.viddoer.attendence.R;
 
 import java.util.List;
@@ -49,41 +47,9 @@ public class FacultyAdapter extends RecyclerView.Adapter<FacultyAdapter.ViewHold
         FacultyItem facultyItem = facultyList.get(position);
 
         holder.textViewFacultyName.setText(facultyItem.getFacultyName());
-        holder.textViewSubject.setText(facultyItem.getSubject());
+        holder.textViewSubject.setText("GP BARH");
 
-//        holder.textViewFacultyName.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                new AlertDialog.Builder(context)
-//                        .setMessage("Are you sure you want to delete the faculty?")
-//                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                // Initialize Firebase
-//                                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-//                                DatabaseReference databaseReference = firebaseDatabase.getReference();
-//                                // Save data to Firebase
-//                                databaseReference.child("faculties").child(facultyItem.getId()).setValue(null);
-//                                Toast.makeText(context, "Delete Successfully", Toast.LENGTH_SHORT).show();
-//                                context.startActivity(new Intent(context, PrincipleDashboard.class));
-//                                ((Activity) holder.itemView.getContext()).finish();
-//
-//
-//                            }
-//                        })
-//                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                               dialog.dismiss();
-//                            }
-//                        })
-//                        .show();
-//
-//                return true;
-//            }
-//
-//
-//        });
+
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
                 R.array.options_array, android.R.layout.simple_spinner_item);
@@ -124,10 +90,9 @@ public class FacultyAdapter extends RecyclerView.Adapter<FacultyAdapter.ViewHold
 
                 Intent intent = new Intent(holder.itemView.getContext(), FacultyProfile.class);
                 intent.putExtra("name", facultyItem.getFacultyName());
-                intent.putExtra("subject", facultyItem.getSubject());
+                intent.putExtra("email", facultyItem.getEmail());
                 intent.putExtra("number", facultyItem.getNumber());
-                intent.putExtra("password", facultyItem.getPassword());
-                intent.putExtra("id", facultyItem.getId());
+
                 context.startActivity(intent);
             }
         });

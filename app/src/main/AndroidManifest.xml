@@ -20,6 +20,9 @@
         android:theme="@style/Theme.Attendence"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Principle.PrincipleFrontDashboard.PricipalFrontActivity"
+            android:exported="false" />
+        <activity
             android:name=".Faculties.Class_Test.ClassTestViewDownload"
             android:exported="false" />
         <activity
