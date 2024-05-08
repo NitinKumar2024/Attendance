@@ -1,8 +1,10 @@
 package com.viddoer.attendence.Faculties;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -61,7 +63,7 @@ public class AllAttendanceViewDownload extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     ProgressBar progressBar;
-    String subject, subject_name;
+    String subject, subject_name, branch, semester;
     List<AdvancedAttendanceModel> contactList = new ArrayList<>();
     private static final String PHP_SCRIPT_URL = ApiUrls.AllAttendanceViewDownload_PHP_SCRIPT_URL;
     String PHP_SCRIPT_URL_Range = ApiUrls.AllAttendanceViewDownload_HP_SCRIPT_URL_Range;
@@ -86,6 +88,8 @@ public class AllAttendanceViewDownload extends AppCompatActivity {
         pairDate2 = getIntent().getStringExtra("date2");
         subject = getIntent().getStringExtra("subject");
         subject_name = getIntent().getStringExtra("subject_name");
+        branch = getIntent().getStringExtra("branch");
+        semester = getIntent().getStringExtra("semester");
 
         if (TextUtils.isEmpty(singleDate)){
             // Perform task which is fetch all range data between pairDate1 to pairDate2
@@ -213,11 +217,18 @@ public class AllAttendanceViewDownload extends AppCompatActivity {
 
         // Convert studentList to JSON Array
         JSONArray jsonArray = new JSONArray();
+        String shared_name = "teacher_login";
+
+        SharedPreferences sharedPreferencest = getSharedPreferences(shared_name, Context.MODE_PRIVATE);
+        String college_code = sharedPreferencest.getString("college_code", null);
+        String branchs = college_code + branch;
 
         JSONObject studentObject = new JSONObject();
         try {
             studentObject.put("name", subject);
             studentObject.put("date", singleDate);
+            studentObject.put("branch", branchs);
+
 
 
             jsonArray.put(studentObject);

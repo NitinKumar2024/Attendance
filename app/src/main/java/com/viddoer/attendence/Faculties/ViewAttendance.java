@@ -56,6 +56,8 @@ public class ViewAttendance extends Fragment {
                         intent.putExtra("date", selectedDate);
                         intent.putExtra("subject", subject_code);
                         intent.putExtra("subject_name", subject);
+                        intent.putExtra("branch", branch);
+                        intent.putExtra("semester",semester);
                         startActivity(intent);
 
                     }

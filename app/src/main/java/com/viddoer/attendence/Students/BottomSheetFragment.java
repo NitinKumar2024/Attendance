@@ -125,7 +125,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                 for (Student student : studentList) {
                     JSONObject studentObject = new JSONObject();
                     try {
-                        studentObject.put("name", student.getName());
+
                         studentObject.put("roll_no", student.getRoll_no());
                         studentObject.put("status", student.getStatus());
                         studentObject.put("subject", subject);
