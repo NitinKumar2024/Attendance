@@ -40,21 +40,20 @@ public class WhoAreYou extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("student_login", Context.MODE_PRIVATE);
         String Email = sharedPreferences.getString("email", null);
-        String password = sharedPreferences.getString("password", null);
+
         String semester = sharedPreferences.getString("semester", null);
         String Registration = sharedPreferences.getString("registration", null);
         String Phone = sharedPreferences.getString("phone", null);
         String name = sharedPreferences.getString("name", null);
 
 
-        if (Email!=null && password != null){
+        if (Email!=null){
             Intent intent = new Intent(WhoAreYou.this, StudentFrontActivity.class);
             intent.putExtra("name", name);
             intent.putExtra("email", Email);
             intent.putExtra("semester", semester);
             intent.putExtra("registration", Registration);
             intent.putExtra("phone", Phone);
-            intent.putExtra("password", password);
             startActivity(intent);
             finish();
 

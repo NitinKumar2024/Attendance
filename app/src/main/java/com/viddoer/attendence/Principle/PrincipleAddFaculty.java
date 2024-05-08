@@ -2,7 +2,9 @@ package com.viddoer.attendence.Principle;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.core.app.ActivityCompat;
@@ -94,10 +96,14 @@ public class PrincipleAddFaculty extends Fragment {
 
         // Convert studentList to JSON Array
         JSONArray jsonArray = new JSONArray();
+        String shared_name = "principal_login";
+        SharedPreferences sharedPreferencest = getActivity().getSharedPreferences(shared_name, Context.MODE_PRIVATE);
+        String college_code = sharedPreferencest.getString("college_code", null);
 
         JSONObject studentObject = new JSONObject();
         try {
             studentObject.put("branch", branch);
+            studentObject.put("college_code", college_code);
 
             jsonArray.put(studentObject);
         } catch (JSONException e) {
@@ -181,7 +187,7 @@ public class PrincipleAddFaculty extends Fragment {
                 String name = studentObject.getString("username"); // Adjust key according to PHP response
                 String email = studentObject.getString("email"); // Adjust key according to PHP response
                 String number = studentObject.getString("number"); // Adjust key according to PHP response
-                String password = studentObject.getString("password"); // Adjust key according to PHP response
+
                 facultyList.add(new FacultyItem(name, email, number));
             }
         } catch (JSONException e) {

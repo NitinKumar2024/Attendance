@@ -1,5 +1,7 @@
 package com.viddoer.attendence.Faculties.Class_Test;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -73,10 +75,16 @@ public class FacultyClassTest extends AppCompatActivity {
         // Convert studentList to JSON Array
         JSONArray jsonArray = new JSONArray();
 
+        String shared_name = "teacher_login";
+
+        SharedPreferences sharedPreferencest = getSharedPreferences(shared_name, Context.MODE_PRIVATE);
+        String college_code = sharedPreferencest.getString("college_code", null);
+
         JSONObject studentObject = new JSONObject();
         try {
             studentObject.put("branch", branch);
             studentObject.put("semester", semester);
+            studentObject.put("college_code", college_code);
 
 
             jsonArray.put(studentObject);
@@ -157,11 +165,11 @@ public class FacultyClassTest extends AppCompatActivity {
         try {
             for (int i = 0; i < response.length(); i++) {
                 JSONObject studentObject = response.getJSONObject(i);
-                String name = studentObject.getString("Name");
+                String name = studentObject.getString("username");
                 String rollNo = studentObject.getString("Reg");
                 String branch = studentObject.getString("branch");
-                String email = studentObject.getString("Email");
-                String number = studentObject.getString("Phone");
+                String email = studentObject.getString("email");
+                String number = studentObject.getString("number");
                 String semester = studentObject.getString("semester");
                 // Add the parsed data to the studentList
                 String complete_subject = branch + subject_code;

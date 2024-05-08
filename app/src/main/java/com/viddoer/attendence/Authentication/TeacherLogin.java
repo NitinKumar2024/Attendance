@@ -275,8 +275,15 @@ public class TeacherLogin extends AppCompatActivity {
                     editor.putString("college_code", college_code);
                     editor.putString("unique_token", unique_token);
                     editor.apply();
+                    String value = getIntent().getStringExtra("role");
+                    if (value.equals("faculty")){
+                        startActivity(intent);
+                    }
+                    else {
 
-                    finish();
+                        finish();
+                    }
+
                 } else if (name == null) {
                     Toast.makeText(this, "Invalid username and password", Toast.LENGTH_SHORT).show();
 

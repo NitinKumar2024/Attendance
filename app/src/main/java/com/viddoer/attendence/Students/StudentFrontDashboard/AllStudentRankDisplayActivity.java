@@ -85,7 +85,7 @@ public class AllStudentRankDisplayActivity extends AppCompatActivity {
             JSONObject studentObject = new JSONObject();
 
             // Add the subject field to the student object
-            studentObject.put("subject", subject);
+            studentObject.put("subject", subject_code);
 
             // Add the student object to the students array
             studentsArray.put(studentObject);
@@ -145,7 +145,7 @@ public class AllStudentRankDisplayActivity extends AppCompatActivity {
 
         JSONObject studentObject = new JSONObject();
         try {
-            studentObject.put("subject", subject);
+            studentObject.put("subject", subject_code);
 
 
 

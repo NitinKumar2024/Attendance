@@ -54,7 +54,7 @@ public class ViewAttendance extends Fragment {
                         Intent intent = new Intent(getActivity(), AllAttendanceViewDownload.class);
                         String full_subject = branch + subject_code;
                         intent.putExtra("date", selectedDate);
-                        intent.putExtra("subject", full_subject);
+                        intent.putExtra("subject", subject_code);
                         intent.putExtra("subject_name", subject);
                         startActivity(intent);
 
@@ -82,8 +82,8 @@ public class ViewAttendance extends Fragment {
                                 Intent intent = new Intent(getActivity(), AllAttendanceViewDownload.class);
                                 intent.putExtra("date1", pair_calender1);
                                 intent.putExtra("date2", pair_calender2);
-                                String subject = branch + subject_code;
-                                intent.putExtra("subject", subject);
+                                intent.putExtra("subject", subject_code);
+                                intent.putExtra("subject_name", subject);
                                 startActivity(intent);
 
 

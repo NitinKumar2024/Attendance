@@ -167,12 +167,12 @@ public class Login extends AppCompatActivity {
 
             for (int i = 0; i < response.length(); i++) {
                 JSONObject studentObject = response.getJSONObject(i);
-                String name = studentObject.getString("Name");
+                String name = studentObject.getString("username");
                 String semester = studentObject.getString("semester");
                 String Registration = studentObject.getString("Reg");
-                String Email = studentObject.getString("Email");
-                String Phone = studentObject.getString("Phone");
-                String password = studentObject.getString("password");
+                String Email = studentObject.getString("email");
+                String Phone = studentObject.getString("number");
+
               //  Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
 
                 Toast.makeText(this, "Login Successfully", Toast.LENGTH_SHORT).show();
@@ -182,11 +182,10 @@ public class Login extends AppCompatActivity {
                 intent.putExtra("semester", semester);
                 intent.putExtra("registration", Registration);
                 intent.putExtra("phone", Phone);
-                intent.putExtra("password", password);
+
                 SharedPreferences sharedPreferences = getSharedPreferences("student_login", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("email", Email);
-                editor.putString("password", password);
                 editor.putString("name", name);
                 editor.putString("semester",semester);
                 editor.putString("registration", Registration);

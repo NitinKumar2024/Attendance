@@ -2,11 +2,10 @@ package com.viddoer.attendence.Principle;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -64,7 +63,6 @@ import cz.msebera.android.httpclient.Header;
 public class StudentSemesterHandling extends AppCompatActivity {
 
     private static final int PICK_EXCEL_FILE = 123;
-    ProgressDialog progressDialog;
     AsyncHttpClient client;
     RecyclerView recyclerView;
     private static final String LOWERCASE_CHARS = "abcdefghijklmnopqrstuvwxyz";
@@ -161,6 +159,10 @@ public class StudentSemesterHandling extends AppCompatActivity {
 
     private void view_php(String branch, String semester) {
         progressBar.setVisibility(View.VISIBLE);
+        String shared_name = "principal_login";
+
+        SharedPreferences sharedPreferencest = getSharedPreferences(shared_name, Context.MODE_PRIVATE);
+        String college_code = sharedPreferencest.getString("college_code", null);
 
         // Convert studentList to JSON Array
         JSONArray jsonArray = new JSONArray();
@@ -169,6 +171,7 @@ public class StudentSemesterHandling extends AppCompatActivity {
         try {
             studentObject.put("branch", branch);
             studentObject.put("semester", semester);
+            studentObject.put("college_code", college_code);
 
 
             jsonArray.put(studentObject);
@@ -277,6 +280,10 @@ public class StudentSemesterHandling extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
 
+        String shared_name = "principal_login";
+        SharedPreferences sharedPreferencest = getSharedPreferences(shared_name, Context.MODE_PRIVATE);
+        String college_code = sharedPreferencest.getString("college_code", null);
+
         // Convert studentList to JSON Array
         JSONArray jsonArray = new JSONArray();
 
@@ -284,6 +291,7 @@ public class StudentSemesterHandling extends AppCompatActivity {
         try {
             studentObject.put("branch", branch);
             studentObject.put("semester", semester);
+            studentObject.put("college_code", college_code);
 
 
             jsonArray.put(studentObject);
@@ -358,10 +366,11 @@ public class StudentSemesterHandling extends AppCompatActivity {
         try {
             for (int i = 0; i < response.length(); i++) {
                 JSONObject studentObject = response.getJSONObject(i);
-                String name = studentObject.getString("Name");
+                String name = studentObject.getString("username");
                 String rollNo = studentObject.getString("Reg");
-                String phone = studentObject.getString("Phone");
-                String email = studentObject.getString("Email");
+                String phone = studentObject.getString("number");
+                String email = studentObject.getString("email");
+
 
                 // Create a StudentAddModel object and add it to the list
                 StudentAddModel student = new StudentAddModel(rollNo, name, phone, email);
@@ -377,6 +386,10 @@ public class StudentSemesterHandling extends AppCompatActivity {
     private void upload_php() {
 
         progressBar.setVisibility(View.VISIBLE);
+
+        String shared_name = "principal_login";
+        SharedPreferences sharedPreferencest = getSharedPreferences(shared_name, Context.MODE_PRIVATE);
+        String college_code = sharedPreferencest.getString("college_code", null);
 
         // Convert studentList to JSON Array
         JSONArray jsonArray = new JSONArray();
@@ -394,6 +407,7 @@ public class StudentSemesterHandling extends AppCompatActivity {
                 studentObject.put("email", student.getEmail());
                 studentObject.put("number", student.getPhone());
                 studentObject.put("password", randomPassword);
+                studentObject.put("college_code", college_code);
                 jsonArray.put(studentObject);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -424,7 +438,7 @@ public class StudentSemesterHandling extends AppCompatActivity {
                         // You can parse response here if server sends any
                         Toast.makeText(StudentSemesterHandling.this, response, Toast.LENGTH_SHORT).show();
 
-                        if (response.contains("Email sent successfully")) {
+                        if (response.contains("success")) {
                             Toast.makeText(StudentSemesterHandling.this, "Student Added Successfully", Toast.LENGTH_SHORT).show();
                             finish();
 
@@ -584,7 +598,7 @@ public class StudentSemesterHandling extends AppCompatActivity {
             Workbook workbook = WorkbookFactory.create(file);
 
             // Get the first sheet
-            Sheet sheet = workbook.getSheetAt(0);
+            Sheet sheet = workbook.getSheetAt(3);
 
             // Get the iterator to iterate over rows
             Iterator<Row> rowIterator = sheet.iterator();
@@ -598,15 +612,21 @@ public class StudentSemesterHandling extends AppCompatActivity {
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
                 // Get the data from the specified columns
-                String regNo = getCellValueAsString(row.getCell(1)); // Assuming regNo is in column C (index 2)
-                String name = getCellValueAsString(row.getCell(2)); // Assuming name is in column D (index 3)
-                String phone = getCellValueAsString(row.getCell(4)); // Assuming number is in column E (index 4)
-                String email = getCellValueAsString(row.getCell(5)); // Assuming email is in column F (index 5)
+                String regNo = getCellValueAsString(row.getCell(0)); // Assuming regNo is in column C (index 2)
+                String name = getCellValueAsString(row.getCell(1)); // Assuming name is in column D (index 3)
+                String email = getCellValueAsString(row.getCell(2)); // Assuming email is in column F (index 5)
+                String phone = getCellValueAsString(row.getCell(3)); // Assuming number is in column E (index 4)
 
-                // Create a StudentAddModel object and add it to the list
-                StudentAddModel student = new StudentAddModel(regNo, name, phone, email);
+                // Check for null or empty values before adding to the list
+                if (!TextUtils.isEmpty(regNo) && !TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(phone)) {
+                    StudentAddModel student = new StudentAddModel(regNo, name, phone, email);
+                    studentList.add(student);
+                } else {
+                    // Display toast message if any value is null or empty
+                    Toast.makeText(this, "Null or Empty Value Exists", Toast.LENGTH_SHORT).show();
+                }
 
-                studentList.add(student);
+
             }
 
 

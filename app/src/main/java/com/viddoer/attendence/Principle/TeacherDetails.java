@@ -2,7 +2,9 @@ package com.viddoer.attendence.Principle;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -130,6 +132,10 @@ public class TeacherDetails extends AppCompatActivity {
 
                     // Convert studentList to JSON Array
                     JSONArray jsonArray = new JSONArray();
+                    String shared_name = "principal_login";
+                    SharedPreferences sharedPreferencest = getSharedPreferences(shared_name, Context.MODE_PRIVATE);
+                    String college_code = sharedPreferencest.getString("college_code", null);
+                    Toast.makeText(TeacherDetails.this, college_code, Toast.LENGTH_SHORT).show();
 
                     JSONObject studentObject = new JSONObject();
                     int passwordLength = 8; // Set the desired length of the password
@@ -139,6 +145,7 @@ public class TeacherDetails extends AppCompatActivity {
                         studentObject.put("number", number);
                         studentObject.put("email", email);
                         studentObject.put("password", randomPassword);
+                        studentObject.put("college_code", college_code);
 
                         jsonArray.put(studentObject);
                     } catch (JSONException e) {

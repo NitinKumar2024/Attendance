@@ -66,17 +66,12 @@ public class StudentSubjectDisplay extends AppCompatActivity {
         roll = getIntent().getStringExtra("roll");
         subject = getIntent().getStringExtra("subject");
         String best_subject = getIntent().getStringExtra("complete_subject");
-        complete_subject = branch_code + subject_code;
+        complete_subject = subject_code;
         TextView textView = findViewById(R.id.textViewTitle);
         textView.setText(subject);
 
-        if (best_subject!=null){
-            student_attendance_filter(best_subject, roll);
+        student_attendance_filter(subject_code, roll);
 
-        }
-        else {
-            student_attendance_filter(complete_subject, roll);
-        }
 
 
 
@@ -179,7 +174,7 @@ public class StudentSubjectDisplay extends AppCompatActivity {
 
         JSONObject studentObject = new JSONObject();
         try {
-            studentObject.put("subject", subject);
+            studentObject.put("subject", subject_code);
             studentObject.put("roll", roll);
 
             jsonArray.put(studentObject);

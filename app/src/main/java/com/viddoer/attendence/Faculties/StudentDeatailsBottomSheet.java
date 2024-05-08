@@ -92,8 +92,8 @@ public class StudentDeatailsBottomSheet extends BottomSheetDialogFragment {
         email_textView.setOnClickListener(v -> send_mail_for_low_attendance(email, name, subject_name));
         Attendance_report_textView.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), StudentSubjectDisplay.class);
-            intent.putExtra("complete_subject", complete_subject);
-            intent.putExtra("roll", roll);
+            intent.putExtra("subject_code", subject_code);
+            intent.putExtra("roll", registration);
             intent.putExtra("subject", subject_name);
             startActivity(intent);
         });

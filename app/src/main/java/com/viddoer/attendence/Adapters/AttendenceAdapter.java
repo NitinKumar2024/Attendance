@@ -59,7 +59,7 @@ public class AttendenceAdapter extends RecyclerView.Adapter<AttendenceAdapter.At
             @Override
             public void onClick(View v) {
                 StudentDeatailsBottomSheet bottomSheetFragment = new StudentDeatailsBottomSheet();
-                bottomSheetFragment.setStudentList(attendanceModels.get(position).getNumber(), email, subject, names, roll, subject_name, subject_code, registration);
+                bottomSheetFragment.setStudentList(attendanceModels.get(position).getNumber(), email, subject_code, names, registration, subject_name, subject_code, registration);
                 bottomSheetFragment.show(((AppCompatActivity) v.getContext()).getSupportFragmentManager(), bottomSheetFragment.getTag());
 
             }
@@ -75,15 +75,15 @@ public class AttendenceAdapter extends RecyclerView.Adapter<AttendenceAdapter.At
         checkBoxAbsent.setOnCheckedChangeListener(null);
 
         // Set checkbox status based on all_student list
-        String value = names + "," + roll + ",Present," + attendanceModels.get(position).getSubject();
+        String value = names + "," + registration + ",Present," + attendanceModels.get(position).getSubject();
         checkBoxStudent.setChecked(all_student.contains(value));
 
-        value = names + "," + roll + ",Absent," + attendanceModels.get(position).getSubject();
+        value = names + "," + registration + ",Absent," + attendanceModels.get(position).getSubject();
         checkBoxAbsent.setChecked(all_student.contains(value));
 
         checkBoxStudent.setOnCheckedChangeListener((buttonView, isChecked) -> {
             int pos = (int) buttonView.getTag();
-            String value1 = attendanceModels.get(pos).getName() + "," + attendanceModels.get(pos).getRoll_no() + ",Present," + attendanceModels.get(pos).getSubject();
+            String value1 = attendanceModels.get(pos).getName() + "," + registration + ",Present," + attendanceModels.get(pos).getSubject();
             if (isChecked) {
                 all_student.add(value1);
                 checkBoxAbsent.setChecked(false);
@@ -94,7 +94,7 @@ public class AttendenceAdapter extends RecyclerView.Adapter<AttendenceAdapter.At
 
         checkBoxAbsent.setOnCheckedChangeListener((buttonView, isChecked) -> {
             int pos = (int) buttonView.getTag();
-            String value1 = attendanceModels.get(pos).getName() + "," + attendanceModels.get(pos).getRoll_no() + ",Absent," + attendanceModels.get(pos).getSubject();
+            String value1 = attendanceModels.get(pos).getName() + "," + registration + ",Absent," + attendanceModels.get(pos).getSubject();
             if (isChecked) {
                 all_student.add(value1);
                 checkBoxStudent.setChecked(false);
@@ -114,7 +114,7 @@ public class AttendenceAdapter extends RecyclerView.Adapter<AttendenceAdapter.At
 
                 if (allAttendanceMarked) {
                     BottomSheetFragment bottomSheetFragment = new BottomSheetFragment();
-                    bottomSheetFragment.setStudentList(new ArrayList<>(all_student), attendanceModels.get(position).getSubject());
+                    bottomSheetFragment.setStudentList(new ArrayList<>(all_student), subject_code, subject_name);
                     bottomSheetFragment.show(((AppCompatActivity) v.getContext()).getSupportFragmentManager(), bottomSheetFragment.getTag());
                 } else {
                     Toast.makeText(context, "Mark all attendance", Toast.LENGTH_SHORT).show();
@@ -128,8 +128,8 @@ public class AttendenceAdapter extends RecyclerView.Adapter<AttendenceAdapter.At
     private boolean isAllAttendanceMarked() {
         // Iterate through the attendance status of each student
         for (AttendenceModel model : attendanceModels) {
-            String presentKey = model.getName() + "," + model.getRoll_no() + ",Present," + model.getSubject();
-            String absentKey = model.getName() + "," + model.getRoll_no() + ",Absent," + model.getSubject();
+            String presentKey = model.getName() + "," + model.getRegistration() + ",Present," + model.getSubject();
+            String absentKey = model.getName() + "," + model.getRegistration() + ",Absent," + model.getSubject();
             // Check if both present and absent statuses are marked for each student
             if (!all_student.contains(presentKey) && !all_student.contains(absentKey)) {
                 return false; // Attendance for at least one student is not marked

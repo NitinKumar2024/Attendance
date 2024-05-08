@@ -2,7 +2,9 @@ package com.viddoer.attendence.Principle;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -97,6 +99,12 @@ public class PrincipleUploadSubject extends Fragment {
     private void upload_subject_php(){
         progressBar.setVisibility(View.VISIBLE);
 
+        String shared_name = "principal_login";
+
+        SharedPreferences sharedPreferencest = getActivity().getSharedPreferences(shared_name, Context.MODE_PRIVATE);
+        String college_code = sharedPreferencest.getString("college_code", null);
+
+
         // Convert studentList to JSON Array
         JSONArray jsonArray = new JSONArray();
         for (PrincipleUploadSubjectModel student : studentList) {
@@ -107,6 +115,7 @@ public class PrincipleUploadSubject extends Fragment {
                 studentObject.put("branch", student.getBranch());
                 studentObject.put("branch_code", student.getBranch_code());
                 studentObject.put("semester", student.getSemester());
+                studentObject.put("college_code", college_code);
             ///    Toast.makeText(getActivity(), student.getSemester(), Toast.LENGTH_SHORT).show();
                 jsonArray.put(studentObject);
             } catch (JSONException e) {

@@ -551,7 +551,7 @@ public class AllAttendanceViewDownload extends AppCompatActivity {
             for (int i = 0; i < response.length(); i++) {
                 JSONObject studentObject = response.getJSONObject(i);
                 String name = studentObject.getString("username");
-                String rollNo = studentObject.getString("Roll");
+                String rollNo = studentObject.getString("Roll").substring(7, 10);
                 String status = studentObject.getString("user_status");
                 String date = studentObject.getString("Date");
 

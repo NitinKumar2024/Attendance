@@ -42,12 +42,13 @@ import java.util.Map;
 public class BottomSheetFragment extends BottomSheetDialogFragment {
 
     private List<String> student_all_List;
-    private String subject;
+    private String subject, subject_name;
 
 
-    public void setStudentList(List<String> student_all_List, String subject) {
+    public void setStudentList(List<String> student_all_List, String subject, String subject_name) {
         this.student_all_List = student_all_List;
         this.subject = subject;
+        this.subject_name = subject_name;
         // Handle the received list in your BottomSheetFragment
         // You can use this list to update your UI or perform any other actions
     }
@@ -211,6 +212,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                 Intent intent = new Intent(getContext(), AllAttendanceViewDownload.class);
                 intent.putExtra("date", formattedDate);
                 intent.putExtra("subject", subject);
+                intent.putExtra("subject_name", subject_name);
                 startActivity(intent);
                 getActivity().finish();
 

@@ -1,6 +1,8 @@
 package com.viddoer.attendence.Students;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -59,7 +61,7 @@ public class StudentDashboardFragment extends Fragment {
         progressBar = view.findViewById(R.id.threeDotSpinner);
 
         branch = registration.substring(3, 5);
-        roll = registration.substring(registration.length() - 3);
+        roll = registration.toString();
         // Assuming you have a list of FacultySubjectModel
 
         // Add more subjects as needed
@@ -97,6 +99,10 @@ public class StudentDashboardFragment extends Fragment {
     private void fetch_all_subject(String branch, String semester) {
         progressBar.setVisibility(View.VISIBLE);
 
+        String shared_name = "student_login";
+        SharedPreferences sharedPreferencest = getActivity().getSharedPreferences(shared_name, Context.MODE_PRIVATE);
+        String college_code = sharedPreferencest.getString("registration", null).substring(0, 2);
+
         // Convert studentList to JSON Array
         JSONArray jsonArray = new JSONArray();
 
@@ -104,6 +110,7 @@ public class StudentDashboardFragment extends Fragment {
         try {
             studentObject.put("branch", branch);
             studentObject.put("semester", semester);
+            studentObject.put("college_code", college_code);
 
             jsonArray.put(studentObject);
         } catch (JSONException e) {
