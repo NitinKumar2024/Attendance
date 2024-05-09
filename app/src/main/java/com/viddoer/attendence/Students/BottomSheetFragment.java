@@ -58,6 +58,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     private List<Student> studentList;
     private TextView total_student_number, present_student_number, absent_student_number;
     String url = ApiUrls.BottomSheetFragment_url;
+    String branch;
 
     public BottomSheetFragment() {
         // Required empty public constructor
@@ -88,6 +89,12 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             String second_roll = parts[1];
             String third_status = parts[2].replaceAll("[\\]'\"]", "");
             studentList.add(new Student(first_name, second_roll, third_status));
+
+            if (total_student == 0){
+                branch = second_roll.substring(3, 5);
+                total_student++;
+            }
+
             if (third_status.equals("Present")){
                 present_student++;
             }
@@ -111,84 +118,78 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button button = view.findViewById(R.id.buttonMarkAttendance);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ProgressDialog progressDialog = new ProgressDialog(getContext());
-                progressDialog.setMessage("Uploading...");
-                progressDialog.show();
+        button.setOnClickListener(v -> {
+            ProgressDialog progressDialog = new ProgressDialog(getContext());
+            progressDialog.setMessage("Uploading...");
+            progressDialog.show();
 
 
 
-                // Convert studentList to JSON Array
-                JSONArray jsonArray = new JSONArray();
-                for (Student student : studentList) {
-                    JSONObject studentObject = new JSONObject();
-                    try {
-
-                        studentObject.put("roll_no", student.getRoll_no());
-                        studentObject.put("status", student.getStatus());
-                        studentObject.put("subject", subject);
-                        jsonArray.put(studentObject);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                // Create a JSON object to hold the student list
-                JSONObject jsonObject = new JSONObject();
-             //   String name_s = "Mathematics";
+            // Convert studentList to JSON Array
+            JSONArray jsonArray = new JSONArray();
+            for (Student student : studentList) {
+                JSONObject studentObject = new JSONObject();
                 try {
-                    jsonObject.put("students", jsonArray);
-                  //  jsonObject.put("subject", name_s);
+
+                    studentObject.put("roll_no", student.getRoll_no());
+                    studentObject.put("status", student.getStatus());
+                    studentObject.put("subject", subject);
+                    jsonArray.put(studentObject);
                 } catch (JSONException e) {
-                    e.printStackTrace();
+
                 }
-
-                // Create a request queue
-                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-
-                // Create a StringRequest to send POST data to the server
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                // Handle response from server
-                                // You can parse response here if server sends any
-                             //   Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
-
-                                if (response.contains("Student details inserted successfully")){
-                                    Toast.makeText(getActivity(), "Attendance Marked", Toast.LENGTH_SHORT).show();
-                                    showAlert(subject);
-                                }
-                                else {
-                                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-                                }
-
-                                progressDialog.dismiss(); // Dismiss the progress dialog after receiving response
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                // Handle error
-                                System.out.println(error.toString());
-                                Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_SHORT).show();
-                                progressDialog.dismiss(); // Dismiss the progress dialog if there's an error
-                            }
-                        }) {
-                    @Override
-                    protected Map<String, String> getParams() {
-                        // Create a HashMap to store parameters
-                        Map<String, String> params = new HashMap<>();
-                        params.put("students", jsonObject.toString()); // Add student JSON object as a parameter
-                        return params;
-                    }
-                };
-
-                // Add the request to the request queue
-                requestQueue.add(stringRequest);
             }
+
+            // Create a JSON object to hold the student list
+            JSONObject jsonObject = new JSONObject();
+         //   String name_s = "Mathematics";
+            try {
+                jsonObject.put("students", jsonArray);
+              //  jsonObject.put("subject", name_s);
+            } catch (JSONException e) {
+
+            }
+
+            // Create a request queue
+            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+
+            // Create a StringRequest to send POST data to the server
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // Handle response from server
+                            // You can parse response here if server sends any
+                         //   Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
+
+                            if (response.contains("Student details inserted successfully")){
+                                Toast.makeText(getActivity(), "Attendance Marked", Toast.LENGTH_SHORT).show();
+                                showAlert(subject);
+                            }
+                            else {
+                                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                            }
+
+                            progressDialog.dismiss(); // Dismiss the progress dialog after receiving response
+                        }
+                    },
+                    error -> {
+                        // Handle error
+                        System.out.println(error.toString());
+                        Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss(); // Dismiss the progress dialog if there's an error
+                    }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    // Create a HashMap to store parameters
+                    Map<String, String> params = new HashMap<>();
+                    params.put("students", jsonObject.toString()); // Add student JSON object as a parameter
+                    return params;
+                }
+            };
+
+            // Add the request to the request queue
+            requestQueue.add(stringRequest);
         });
 
         return view;
@@ -212,20 +213,18 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                 Intent intent = new Intent(getContext(), AllAttendanceViewDownload.class);
                 intent.putExtra("date", formattedDate);
                 intent.putExtra("subject", subject);
+                intent.putExtra("branch", branch);
                 intent.putExtra("subject_name", subject_name);
                 startActivity(intent);
                 getActivity().finish();
 
                 dialog.dismiss(); // Dismiss the dialog
             }
-        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        }).setNegativeButton("No", (dialog, which) -> {
 
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-                dialog.dismiss();
-            }
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+            dialog.dismiss();
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -233,9 +232,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
 
 
-    private void showToast(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-    }
 
 
 

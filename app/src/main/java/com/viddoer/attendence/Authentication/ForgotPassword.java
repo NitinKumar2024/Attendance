@@ -1,15 +1,16 @@
 package com.viddoer.attendence.Authentication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -23,7 +24,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.viddoer.attendence.ApiUrls;
 import com.viddoer.attendence.R;
-import com.viddoer.attendence.Students.StudentSubjectDisplay;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,37 +56,31 @@ public class ForgotPassword extends AppCompatActivity {
         if (value.equals("principle")){
 
 
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    progressDialog.show();
-                    String emailAddres = email.getText().toString();
-                    if (emailAddres.isEmpty()){
-                        email.setError("Error");
-                        progressDialog.dismiss();
+            button.setOnClickListener(v -> {
+                progressDialog.show();
+                String emailAddres = email.getText().toString();
+                if (emailAddres.isEmpty()){
+                    email.setError("Error");
+                    progressDialog.dismiss();
 
-                    }
-                    else {
-                        FirebaseAuth.getInstance().sendPasswordResetEmail(emailAddres)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            // Password reset email sent successfully
-                                            progressDialog.dismiss();
-                                            email.setText("");
-                                            Toast.makeText(ForgotPassword.this, "Password reset email sent", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            // Password reset email sending failed
-                                            progressDialog.dismiss();
-                                            email.setText("");
-                                            Toast.makeText(ForgotPassword.this, "Failed to send password reset email", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
+                }
+                else {
+                    FirebaseAuth.getInstance().sendPasswordResetEmail(emailAddres)
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    // Password reset email sent successfully
+                                    progressDialog.dismiss();
+                                    email.setText("");
+                                    Toast.makeText(ForgotPassword.this, "Password reset email sent", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    // Password reset email sending failed
+                                    progressDialog.dismiss();
+                                    email.setText("");
+                                    Toast.makeText(ForgotPassword.this, "Failed to send password reset email", Toast.LENGTH_SHORT).show();
+                                }
+                            });
 
-                    }}
-            });
+                }});
 
         } else if (value.equals("student")) {
 
@@ -110,17 +104,14 @@ public class ForgotPassword extends AppCompatActivity {
 
         } else if (value.equals("faculty")) {
 
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String emails = email.getText().toString();
-                    if (emails!=null){
+            button.setOnClickListener(v -> {
+                String emails = email.getText().toString();
+                if (emails!=null){
 
-                        faculty_forgot_password(emails, "Faculty");
-                    }
-                    else {
-                        Toast.makeText(ForgotPassword.this, "Enter Your Email", Toast.LENGTH_SHORT).show();
-                    }
+                    faculty_forgot_password(emails, "Faculty");
+                }
+                else {
+                    Toast.makeText(ForgotPassword.this, "Enter Your Email", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -171,6 +162,8 @@ public class ForgotPassword extends AppCompatActivity {
                         if (!TextUtils.isEmpty(response)) {
 
                             if (response.equals("Email sent successfully.")){
+                                EditText emails = findViewById(R.id.email_inputEdit);
+                                emails.setText("");
 
                                 Toast.makeText(ForgotPassword.this, "Email Sent Successfully", Toast.LENGTH_SHORT).show();
                             }
@@ -187,14 +180,11 @@ public class ForgotPassword extends AppCompatActivity {
                         }
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Handle error
-                        progressDialog.dismiss();
-                        System.out.println(error.toString());
-                        Toast.makeText(ForgotPassword.this, error.toString(), Toast.LENGTH_SHORT).show();
-                    }
+                error -> {
+                    // Handle error
+                    progressDialog.dismiss();
+                    System.out.println(error.toString());
+                    Toast.makeText(ForgotPassword.this, error.toString(), Toast.LENGTH_SHORT).show();
                 }) {
             @Override
             protected Map<String, String> getParams() {
@@ -221,7 +211,7 @@ public class ForgotPassword extends AppCompatActivity {
 
             jsonArray.put(studentObject);
         } catch (JSONException e) {
-            e.printStackTrace();
+
             progressDialog.dismiss();
         }
 
@@ -230,7 +220,7 @@ public class ForgotPassword extends AppCompatActivity {
         try {
             jsonObject.put("students", jsonArray);
         } catch (JSONException e) {
-            e.printStackTrace();
+
             progressDialog.dismiss();
         }
 
@@ -238,41 +228,37 @@ public class ForgotPassword extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(ForgotPassword.this);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, PHP_SCRIPT_URL2,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Handle response from server
-                        // Trim the response string to remove any leading/trailing whitespaces
-                        response = response.trim();
+                response -> {
+                    // Handle response from server
+                    // Trim the response string to remove any leading/trailing whitespaces
+                    response = response.trim();
 
-                        // Check if the response is not null and not empty
-                        if (!TextUtils.isEmpty(response)) {
+                    // Check if the response is not null and not empty
+                    if (!TextUtils.isEmpty(response)) {
 
-                            if (response.equals("Email sent successfully.")){
+                        if (response.equals("Email sent successfully.")){
+                            EditText emails = findViewById(R.id.email_inputEdit);
+                            emails.setText("");
 
-                                Toast.makeText(ForgotPassword.this, "Email Sent Successfully", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
-                                Toast.makeText(ForgotPassword.this, "Email Not Exist", Toast.LENGTH_SHORT).show();
-                            }
-
-
-                            progressDialog.dismiss();
-                        } else {
-                            // Handle the case where the response is empty
-                            progressDialog.dismiss();
-                            Toast.makeText(ForgotPassword.this, "Empty response received", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ForgotPassword.this, "Email Sent Successfully", Toast.LENGTH_SHORT).show();
                         }
+                        else {
+                            Toast.makeText(ForgotPassword.this, "Email Not Exist", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                        progressDialog.dismiss();
+                    } else {
+                        // Handle the case where the response is empty
+                        progressDialog.dismiss();
+                        Toast.makeText(ForgotPassword.this, "Empty response received", Toast.LENGTH_SHORT).show();
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Handle error
-                        progressDialog.dismiss();
-                        System.out.println(error.toString());
-                        Toast.makeText(ForgotPassword.this, error.toString(), Toast.LENGTH_SHORT).show();
-                    }
+                error -> {
+                    // Handle error
+                    progressDialog.dismiss();
+                    System.out.println(error.toString());
+                    Toast.makeText(ForgotPassword.this, error.toString(), Toast.LENGTH_SHORT).show();
                 }) {
             @Override
             protected Map<String, String> getParams() {
