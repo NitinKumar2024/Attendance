@@ -121,6 +121,9 @@ public class StudentSemesterHandling extends AppCompatActivity {
         this.getSupportActionBar().hide();
 
         branch_code = getIntent().getStringExtra("branch");
+        String who = getIntent().getStringExtra("who");
+
+
         String branch;
         if (branch_code!=null){
             branch = branch_code.substring(branch_code.length() - 2);
@@ -146,7 +149,8 @@ public class StudentSemesterHandling extends AppCompatActivity {
                    upload_php();
                 }
             });
-        } else if (action.equals("view")) {
+        }
+        else if (action.equals("view")) {
             if (branch_code!=null){
                 branch = branch_code.substring(branch_code.length() - 2);
                 view_php(branch, semester);
@@ -155,7 +159,26 @@ public class StudentSemesterHandling extends AppCompatActivity {
 
 
         }
+        if (who!=null){
+
+            openFilePicker();
+            button.setVisibility(View.VISIBLE);
+            button.setText("Upload Faculty");
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    // How to send studentlist in intent
+
+
+
+                }
+            });
+
+        }
     }
+
+
 
     private void view_php(String branch, String semester) {
         progressBar.setVisibility(View.VISIBLE);
@@ -503,32 +526,6 @@ public class StudentSemesterHandling extends AppCompatActivity {
         }
 
 
-
-    private String getPathFromUri(Context context, Uri uri) {
-        String filePath = null;
-        if (context != null && uri != null) {
-            if ("content".equalsIgnoreCase(uri.getScheme())) {
-                String[] projection = { MediaStore.Images.Media.DATA };
-                Cursor cursor = null;
-                try {
-                    cursor = context.getContentResolver().query(uri, projection, null, null, null);
-                    if (cursor != null && cursor.moveToFirst()) {
-                        int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                        filePath = cursor.getString(columnIndex);
-                    }
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                }
-            } else if ("file".equalsIgnoreCase(uri.getScheme())) {
-                filePath = uri.getPath();
-            }
-        }
-        return filePath;
-    }
-
-
     private void uploadFileToFirebase(Uri fileUri) {
         // Get the file name from the URI
         progressBar.setVisibility(View.VISIBLE);
@@ -598,7 +595,7 @@ public class StudentSemesterHandling extends AppCompatActivity {
             Workbook workbook = WorkbookFactory.create(file);
 
             // Get the first sheet
-            Sheet sheet = workbook.getSheetAt(3);
+            Sheet sheet = workbook.getSheetAt(0);
 
             // Get the iterator to iterate over rows
             Iterator<Row> rowIterator = sheet.iterator();

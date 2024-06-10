@@ -1,9 +1,14 @@
 package com.viddoer.attendence.Students;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.ImageView;
@@ -31,6 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -78,8 +84,13 @@ public class StudentSubjectDisplay extends AppCompatActivity {
 
 
     }
+
+    // Custom CalendarCellDecorator class
+
     private void plot(){
         CalendarView calendarView = findViewById(R.id.calendarView);
+
+
 
 
         int presentCount = countUniqueDates(presentDates);
@@ -280,5 +291,7 @@ public class StudentSubjectDisplay extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+
 
 }

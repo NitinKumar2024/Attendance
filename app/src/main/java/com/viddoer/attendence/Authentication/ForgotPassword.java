@@ -53,6 +53,7 @@ public class ForgotPassword extends AppCompatActivity {
 
         String value = getIntent().getStringExtra("authentication");
 
+
         if (value.equals("principle")){
 
 
@@ -271,5 +272,6 @@ public class ForgotPassword extends AppCompatActivity {
 
         // Add the request to the request queue
         requestQueue.add(stringRequest);
+
     }
 }

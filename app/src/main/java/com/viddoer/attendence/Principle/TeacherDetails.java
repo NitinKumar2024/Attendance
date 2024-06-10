@@ -1,10 +1,12 @@
 package com.viddoer.attendence.Principle;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -27,20 +30,40 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
+import com.viddoer.attendence.Adapters.StudentAddAdapter;
 import com.viddoer.attendence.ApiUrls;
+import com.viddoer.attendence.Models.StudentAddModel;
 import com.viddoer.attendence.R;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.SecureRandom;
+import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+
+import cz.msebera.android.httpclient.Header;
 
 public class TeacherDetails extends AppCompatActivity {
 
     private TextInputEditText nameEditText, numberEditText, emailEditText;
+    private static final int PICK_EXCEL_FILE = 123;
+    AsyncHttpClient client;
     private Button submitButton;
 
     private DatabaseReference databaseReference;
@@ -103,11 +126,13 @@ public class TeacherDetails extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Creating...");
         FloatingActionButton floatingActionButton = findViewById(R.id.add_note);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(TeacherDetails.this, PrincipalAssignTeacher.class));
-            }
+        FloatingActionButton floatingActionButton_upload = findViewById(R.id.upload);
+        floatingActionButton.setOnClickListener(v -> startActivity(new Intent(TeacherDetails.this, PrincipalAssignTeacher.class)));
+
+        floatingActionButton_upload.setOnClickListener(v -> {
+
+
+
         });
 
 
@@ -117,157 +142,111 @@ public class TeacherDetails extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog.show();
                 String name = nameEditText.getText().toString();
                 String number = numberEditText.getText().toString();
                 String email = emailEditText.getText().toString();
 
-                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email)|| TextUtils.isEmpty(number)){
-                    progressDialog.dismiss();
-                    Toast.makeText(TeacherDetails.this, "Enter All Field", Toast.LENGTH_SHORT).show();
-                }
-                else {
+
+                upload(name, number, email);
+
+            }
+        });
+    }
+
+    public void upload(String name, String number, String email){
+
+        progressDialog.show();
 
 
-
-                    // Convert studentList to JSON Array
-                    JSONArray jsonArray = new JSONArray();
-                    String shared_name = "principal_login";
-                    SharedPreferences sharedPreferencest = getSharedPreferences(shared_name, Context.MODE_PRIVATE);
-                    String college_code = sharedPreferencest.getString("college_code", null);
-                    Toast.makeText(TeacherDetails.this, college_code, Toast.LENGTH_SHORT).show();
-
-                    JSONObject studentObject = new JSONObject();
-                    int passwordLength = 8; // Set the desired length of the password
-                    String randomPassword = generateRandomPassword(passwordLength);
-                    try {
-                        studentObject.put("username", name);
-                        studentObject.put("number", number);
-                        studentObject.put("email", email);
-                        studentObject.put("password", randomPassword);
-                        studentObject.put("college_code", college_code);
-
-                        jsonArray.put(studentObject);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(number)) {
+            progressDialog.dismiss();
+            Toast.makeText(TeacherDetails.this, "Enter All Field", Toast.LENGTH_SHORT).show();
+        } else {
 
 
-                    // Create a JSON object to hold the student list
-                    JSONObject jsonObject = new JSONObject();
-                    //   String name_s = "Mathematics";
-                    try {
-                        jsonObject.put("students", jsonArray);
-                        //  jsonObject.put("subject", name_s);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+            // Convert studentList to JSON Array
+            JSONArray jsonArray = new JSONArray();
+            String shared_name = "principal_login";
+            SharedPreferences sharedPreferencest = getSharedPreferences(shared_name, Context.MODE_PRIVATE);
+            String college_code = sharedPreferencest.getString("college_code", null);
+            Toast.makeText(TeacherDetails.this, college_code, Toast.LENGTH_SHORT).show();
 
-                    // Create a request queue
-                    RequestQueue requestQueue = Volley.newRequestQueue(TeacherDetails.this);
+            JSONObject studentObject = new JSONObject();
+            int passwordLength = 8; // Set the desired length of the password
+            String randomPassword = generateRandomPassword(passwordLength);
+            try {
+                studentObject.put("username", name);
+                studentObject.put("number", number);
+                studentObject.put("email", email);
+                studentObject.put("password", randomPassword);
+                studentObject.put("college_code", college_code);
 
-                    // Create a StringRequest to send POST data to the server
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                            new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response) {
-                                    // Handle response from server
-                                    // You can parse response here if server sends any
-                                    Toast.makeText(TeacherDetails.this, response, Toast.LENGTH_SHORT).show();
+                jsonArray.put(studentObject);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-                                    if (response.contains("Email sent successfully.")) {
-                                        progressDialog.dismiss();
-                                        nameEditText.setText("");
-                                        emailEditText.setText("");
-                                        numberEditText.setText("");
 
-                                        Toast.makeText(TeacherDetails.this, "Faculty Added Successfully.", Toast.LENGTH_SHORT).show();
+            // Create a JSON object to hold the student list
+            JSONObject jsonObject = new JSONObject();
+            //   String name_s = "Mathematics";
+            try {
+                jsonObject.put("students", jsonArray);
+                //  jsonObject.put("subject", name_s);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-                                    }
-                                    else {
+            // Create a request queue
+            RequestQueue requestQueue = Volley.newRequestQueue(TeacherDetails.this);
 
-                                          progressDialog.dismiss(); // Dismiss the progress dialog after receiving response
-                                    }
-
-                                }
-                            },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    // Handle error
-                                    System.out.println(error.toString());
-                                    Toast.makeText(TeacherDetails.this, error.toString(), Toast.LENGTH_SHORT).show();
-                                    progressDialog.dismiss(); // Dismiss the progress dialog if there's an error
-                                }
-                            }) {
+            // Create a StringRequest to send POST data to the server
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>() {
                         @Override
-                        protected Map<String, String> getParams() {
-                            // Create a HashMap to store parameters
-                            Map<String, String> params = new HashMap<>();
-                            params.put("students", jsonObject.toString()); // Add student JSON object as a parameter
-                            return params;
+                        public void onResponse(String response) {
+                            // Handle response from server
+                            // You can parse response here if server sends any
+                            Toast.makeText(TeacherDetails.this, response, Toast.LENGTH_SHORT).show();
+
+                            if (response.contains("Email sent successfully.")) {
+                                progressDialog.dismiss();
+                                nameEditText.setText("");
+                                emailEditText.setText("");
+                                numberEditText.setText("");
+
+                                Toast.makeText(TeacherDetails.this, "Faculty Added Successfully.", Toast.LENGTH_SHORT).show();
+
+                            } else {
+
+                                progressDialog.dismiss(); // Dismiss the progress dialog after receiving response
+                            }
+
                         }
-                    };
-
-                    // Add the request to the request queue
-                    requestQueue.add(stringRequest);
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // Handle error
+                            System.out.println(error.toString());
+                            Toast.makeText(TeacherDetails.this, error.toString(), Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss(); // Dismiss the progress dialog if there's an error
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    // Create a HashMap to store parameters
+                    Map<String, String> params = new HashMap<>();
+                    params.put("students", jsonObject.toString()); // Add student JSON object as a parameter
+                    return params;
                 }
-            }
-        });
+            };
+
+            // Add the request to the request queue
+            requestQueue.add(stringRequest);
+        }
     }
 
-    private void saveData() {
-        ProgressDialog progressBar = new ProgressDialog(this);
-        progressBar.setMessage("Loading...");
-        progressBar.show();
-        String name = nameEditText.getText().toString();
-        String number = numberEditText.getText().toString();
 
-
-        // Create a unique key for each entry
-        String entryKey = databaseReference.push().getKey();
-
-        // Create a map to store data
-        Map<String, Object> facultyData = new HashMap<>();
-        facultyData.put("name", name);
-        facultyData.put("number", number);
-
-
-        // Save data to Firebase
-        databaseReference.child("faculties").child(entryKey).setValue(facultyData);
-        progressBar.dismiss();
-        Toast.makeText(this, "Faculty Added Successfully", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(TeacherDetails.this, PrincipleDashboard.class);
-        startActivity(intent);
-        finish();
-    }
-
-    private void retrieveData() {
-        databaseReference.child("faculties").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // Iterate through the dataSnapshot to retrieve each faculty's data
-                for (DataSnapshot facultySnapshot : dataSnapshot.getChildren()) {
-                    // Retrieve values from the snapshot
-                    String name = facultySnapshot.child("name").getValue(String.class);
-                    String subject = facultySnapshot.child("subject").getValue(String.class);
-                    String number = facultySnapshot.child("number").getValue(String.class);
-
-
-                    // Display or use the retrieved values as needed
-                    // For example, set them to EditText fields
-                    nameEditText.setText(name);
-
-                    numberEditText.setText(number);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle error
-            }
-        });
-    }
 
 }

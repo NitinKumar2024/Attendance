@@ -74,68 +74,6 @@ public class AllStudentRankDisplayActivity extends AppCompatActivity {
 
     }
 
-    private void retrieveRank(String subject) {
-        VolleyRequestHelper volleyRequestHelper = new VolleyRequestHelper(this);
-
-        try {
-            // Create a JSON array to hold the student objects
-            JSONArray studentsArray = new JSONArray();
-
-            // Create a JSON object for the student
-            JSONObject studentObject = new JSONObject();
-
-            // Add the subject field to the student object
-            studentObject.put("subject", subject_code);
-
-            // Add the student object to the students array
-            studentsArray.put(studentObject);
-
-            // Create a JSON object to hold the students array
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("students", studentsArray);
-
-            // Send the JSON object to the server
-            volleyRequestHelper.postData(PHP_SCRIPT_URL, jsonObject, new VolleyRequestHelper.VolleyResponseListener() {
-                @Override
-                public void onResponse(String response) {
-                    // Handle successful response
-                    try {
-                        // Trim the response string to remove any leading/trailing whitespaces
-                        response = response.trim();
-
-                        // Check if the response is not null and not empty
-                        if (!TextUtils.isEmpty(response)) {
-                            // Try to create a JSONArray from the response string
-                            JSONArray jsonArray = new JSONArray(response);
-                            Toast.makeText(AllStudentRankDisplayActivity.this, "success", Toast.LENGTH_SHORT).show();
-
-                            // If successful, parse the JSON array
-                            parseJSONResponse(jsonArray);
-                            StudentListRankAdapter adapter = new StudentListRankAdapter(getApplicationContext(), contactList);
-                            recyclerView.setAdapter(adapter);
-                            progressBar.setVisibility(View.GONE);
-                        } else {
-                            // Handle the case where the response is empty
-                            Toast.makeText(AllStudentRankDisplayActivity.this, "Empty response received", Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    } catch (JSONException e) {
-                        // Handle JSON parsing error
-                        Toast.makeText(AllStudentRankDisplayActivity.this, "Error parsing JSON: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onError(String error) {
-                    // Handle error
-                    Toast.makeText(AllStudentRankDisplayActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show();
-                }
-            });
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
 
 
     private void retrieveAIStudents(String subject) {
@@ -236,6 +174,7 @@ public class AllStudentRankDisplayActivity extends AppCompatActivity {
             for (int i = 0; i < response.length(); i++) {
                 JSONObject studentObject = response.getJSONObject(i);
                 String username = studentObject.getString("Username");
+                String name = studentObject.getString("username");
                 String rollNo = studentObject.getString("Roll");
                 String user_statusAbsent = studentObject.getString("AbsentDays");
                 String user_statusPresent = studentObject.getString("PresentDays");

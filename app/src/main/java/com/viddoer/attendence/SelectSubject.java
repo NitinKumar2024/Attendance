@@ -33,7 +33,7 @@ import java.util.Map;
 public class SelectSubject extends AppCompatActivity {
 
     List<FacultyAllSubjectModel> subjectList; // Declare but don't initialize here
-    String branch, semester;
+    String branch, semester, college_code;
     FacultyAllSubjectAdapter adapter;
     RecyclerView recyclerView;
     ProgressBar progressBar;
@@ -51,6 +51,7 @@ public class SelectSubject extends AppCompatActivity {
         semester = getIntent().getStringExtra("semester");
         SharedPreferences sharedPreferencest = getSharedPreferences("teacher_login", Context.MODE_PRIVATE);
         String Emails = sharedPreferencest.getString("email", null);
+        college_code = sharedPreferencest.getString("college_code", null);
         subjectList = new ArrayList<>();
 
 
@@ -86,6 +87,7 @@ public class SelectSubject extends AppCompatActivity {
             studentObject.put("branch_code", branch);
             studentObject.put("semester", semester);
             studentObject.put("email", email);
+            studentObject.put("college_code", college_code);
 
 
             jsonArray.put(studentObject);
@@ -167,7 +169,7 @@ public class SelectSubject extends AppCompatActivity {
         try {
             for (int i = 0; i < response.length(); i++) {
                 JSONObject studentObject = response.getJSONObject(i);
-                String subjectName = studentObject.getString("subject");
+                String subjectName = studentObject.getString("Subject");
                 String subjectCode = studentObject.getString("subject_code");
                 String branch_code = studentObject.getString("branch_code");
 
@@ -193,82 +195,4 @@ public class SelectSubject extends AppCompatActivity {
         adapter.notifyDataSetChanged(); // Notify adapter that data set has changed
     }
 
-
-//    private void loadSubjectsFromSharedPreferences() {
-//        // Retrieve subjects from SharedPreferences as a list
-//        SharedPreferences sharedPreferences = getSharedPreferences("subjectList", Context.MODE_PRIVATE);
-//        String subjectListString = sharedPreferences.getString("subjects", "");
-//        List<String> subjectStringList = Arrays.asList(subjectListString.split(","));
-//
-//        // Display each subject
-//        for (String subject : subjectStringList) {
-//            String[] parts = subject.split(":");
-//            if (parts.length >= 4) { // Ensure the subject string contains all necessary parts
-//                String subjectName = parts[0];
-//                String subjectCode = parts[1];
-//                String branchs = parts[2];
-//                String semesters = parts[3];
-//
-//                if (branch.equals(branchs) && semester.equals(semesters)) {
-//                    subjectList.add(new FacultyAllSubjectModel(branch, semester, subjectName, subjectCode));
-//                }
-//            }
-//        }
-//    }
-//
-//    private void showAddSubjectDialog() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        LayoutInflater inflater = getLayoutInflater();
-//        View dialogView = inflater.inflate(R.layout.alert_input_subject, null);
-//        builder.setView(dialogView);
-//
-//        final EditText subjectNameEditText = dialogView.findViewById(R.id.subject_name);
-//        final EditText subjectCodeEditText = dialogView.findViewById(R.id.subject_code);
-//
-//        builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                String subjectName = subjectNameEditText.getText().toString();
-//                String subjectCode = subjectCodeEditText.getText().toString();
-//
-//                if (TextUtils.isEmpty(subjectName) || TextUtils.isEmpty(subjectCode)){
-//                    Toast.makeText(SelectSubject.this, "Fill Details", Toast.LENGTH_SHORT).show();
-//                }
-//                else {
-//                    // Save subjectName and subjectCode to SharedPreferences as a list
-//                    SharedPreferences sharedPreferences = getSharedPreferences("subjectList", Context.MODE_PRIVATE);
-//                    SharedPreferences.Editor editor = sharedPreferences.edit();
-//
-//                    // Retrieve the existing list of subjects
-//                    String subjectListString = sharedPreferences.getString("subjects", "");
-//                    List<String> subjectStringList = new ArrayList<>(Arrays.asList(subjectListString.split(",")));
-//
-//                    // Add the new subject to the list
-//                    String newSubject = subjectName + ":" + subjectCode + ":" + branch + ":" +semester;
-//                    subjectStringList.add(newSubject);
-//
-//                    // Join the list into a comma-separated string and save it back to SharedPreferences
-//                    editor.putString("subjects", TextUtils.join(",", subjectStringList));
-//                    editor.apply();
-//
-//                    // Add the new subject to the list in memory
-//                    subjectList.add(new FacultyAllSubjectModel(branch, semester, subjectName, subjectCode));
-//                    adapter.notifyDataSetChanged(); // Notify adapter that data set has changed
-//                }
-//
-//                // Process the subjectName and subjectCode as needed
-//                Toast.makeText(SelectSubject.this, "Subject Name: " + subjectName + "\nSubject Code: " + subjectCode, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        AlertDialog alertDialog = builder.create();
-//        alertDialog.show();
-//    }
 }
